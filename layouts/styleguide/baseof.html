@@ -3,6 +3,9 @@
 <head>
   <title>{{ if .Title }}{{ .Title }}{{ else }}{{ .Site.Title }}{{ end }}</title>
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap" rel="stylesheet">
+  {{ if $.Site.IsServer }}
+    {{ partial "html/all-styles.html" (dict "staticDirs" (slice "themes/hopin-styleguide/static")) }}
+  {{end}}
 </head>
 <body>
   <main >

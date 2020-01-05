@@ -1,0 +1,10 @@
+{{ define "main" }}
+
+<div class="__hopin__l-home-grid">
+  {{ $pages := where $.Site.RegularPages "Section" "styleguide"}}
+  {{ range first 10 $pages }}
+      {{ partial "components/styleguide-card.html" . }}
+  {{ end }}
+</div>
+
+{{ end }}

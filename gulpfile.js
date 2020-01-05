@@ -32,7 +32,7 @@ gulp.task('css', gulp.series(
 
 gulp.task('copy', gulp.series(
   () => {
-    return gulp.src(path.join(themeSrc, '**/*.html'))
+    return gulp.src(path.join(themeSrc, '**/*.{html,svg}'))
     .pipe(gulp.dest(themeDst));
   }
 ))

@@ -16,7 +16,13 @@ git submodule add git@github.com:gauntface/hopin-styleguide-hugo-theme.git theme
 git submodule add https://github.com/gauntface/hopin-styleguide-hugo-theme.git themes/hopin-styleguide-dev
 ```
 
-### Step 2: Add to Config
+### Step 2: Build Theme
+
+```
+npm install && npm run build-for-hugo
+```
+
+### Step 3: Add to Config
 
 Then add the `hopin-styleguide` to your sites config:
 

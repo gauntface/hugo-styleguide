@@ -1,0 +1,21 @@
+{{ define "main" }}
+
+<div class="n-hopin l-list-grid">
+  <!-- First display the regular pages -->
+  {{ $pages := where $.Site.RegularPages "Section" "styleguide"}}
+  {{ range $pages }}
+    {{ if ge .Weight 1}}
+      {{ partial "components/styleguide-card.html" . }}
+    {{ end }}
+  {{ end }}
+
+  <!-- Then display the index pages for subsections -->
+  {{ $sections := (.Site.GetPage "section" "styleguide").Sections }}
+  {{ range $sections }}
+    {{ if ge .Weight 1}}
+      {{ partial "components/styleguide-card.html" . }}
+    {{ end }}
+  {{ end }}
+</div>
+
+{{ end }}

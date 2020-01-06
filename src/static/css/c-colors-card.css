@@ -1,15 +1,15 @@
-.hopin.c-colors-card--right-circle {
+.n-hopin.c-colors-card--right-circle {
   fill: var(--hopin-home-item-color-2, #00aeef);
 }
 
-.hopin.c-colors-card--left-circle {
+.n-hopin.c-colors-card--left-circle {
   fill: var(--hopin-home-item-color-3, #ec008c);
 }
 
-.hopin.c-colors-card--top-circle {
+.n-hopin.c-colors-card--top-circle {
   fill: var(--hopin-home-item-color-1, #fff200);
 }
 
-.hopin.c-colors-card--outline {
+.n-hopin.c-colors-card--outline {
   stroke: var(--hopin-home-item-outline, #454545);
 }

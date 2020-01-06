@@ -1,10 +1,11 @@
 import { friendlyName, friendlyNameFromURL } from "./_friendly-name";
 
-const GROUP_CONTAINER_CLASS = '__hopin__variable-group';
-const GROUP_TITLE_CLASS = '__hopin__variable-group__title';
+const NAMESPACE_CLASS = 'n-hopin';
+const GROUP_CONTAINER_CLASS = 'c-variable-group';
+const GROUP_TITLE_CLASS = 'c-variable-group__title';
 
 export abstract class VariableGroup {
-    constructor(private containerClass: string, private fileSuffix: string) {}
+    constructor(private containerSelector: string, private fileSuffix: string) {}
 
     getGroups(): Group[] {
         const groups: Group[] = [];
@@ -56,9 +57,9 @@ export abstract class VariableGroup {
     }
 
     render() {
-        const containerElement = document.querySelector(`.${this.containerClass}`);
+        const containerElement = document.querySelector(this.containerSelector);
         if (!containerElement) {
-            console.warn(`Unable to find container with class ${this.containerClass}`)
+            console.warn(`Unable to find container with selector ${this.containerSelector}`)
             return;
         }
 
@@ -66,10 +67,12 @@ export abstract class VariableGroup {
         console.log(`Rendering the following groups:`, groups);
         for (const g of groups) {
             const groupContainer = document.createElement('section');
+            groupContainer.classList.add(NAMESPACE_CLASS);
             groupContainer.classList.add(GROUP_CONTAINER_CLASS);
 
             if (g.prettyName) {
                 const title = document.createElement('h2');
+                title.classList.add(NAMESPACE_CLASS);
                 title.classList.add(GROUP_TITLE_CLASS);
                 title.textContent = g.prettyName;
                 groupContainer.appendChild(title);

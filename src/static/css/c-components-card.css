@@ -1,0 +1,7 @@
+.n-hopin.c-components-card--fill {
+  fill: var(--hopin-home-item-outline, #454545);
+}
+
+.n-hopin.c-components-card--detail {
+  fill: var(--hopin-home-item-bg, white);
+}

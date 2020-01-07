@@ -4,7 +4,7 @@
   height: 100%;
   box-sizing: border-box;
   padding: var(--hopin-main-content-vert-padding, 45px) var(--hopin-main-content-hori-padding, 48px);
-  background-color: var(--hopin-main-sidebar-bg-color, inherit);
+  background-color: var(--hopin-main-sidebar-bg-color, white);
 }
 
 .n-hopin.c-sidebar__list {

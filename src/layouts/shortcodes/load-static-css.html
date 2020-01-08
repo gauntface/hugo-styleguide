@@ -16,6 +16,5 @@
 {{end}}
 
 {{ range .Site.Data.staticdirs }}
-    {{ $dict := (dict "suffix" $.Params.Suffix "dir" .) }}
-    {{ template "load-static-css" $dict }}
+    {{ template "load-static-css" (dict "suffix" $.Params.suffix "dir" .) }}
 {{ end }}

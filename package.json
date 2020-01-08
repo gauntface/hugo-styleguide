@@ -4,8 +4,7 @@
   "version": "1.0.0",
   "description": "This repo contains a theme to use with hopin-styleguide-content..",
   "scripts": {
-    "build-for-hugo": "mkdir -p ../hopin-styleguide && gulp build && cp -r ./build/* ../hopin-styleguide/",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "mkdir -p ../hopin-styleguide && gulp build && cp -r ./build/* ../hopin-styleguide/"
   },
   "devDependencies": {
     "@hopin/wbt-clean": "0.0.30",

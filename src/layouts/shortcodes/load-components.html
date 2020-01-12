@@ -1,0 +1,34 @@
+{{ define "load-components" }}
+    {{ range (readDir $.dir) }}
+      {{ $path := printf "%v/%v" $.dir .Name }}
+      {{ if .IsDir }}
+        {{ if not (or (strings.HasSuffix $path "-dev") (strings.HasPrefix $path "/themes/hopin-styleguide") ) }}
+          {{ template "load-components" (dict "dir" $path) }}
+        {{ end }}
+      {{ else }}
+        {{ if (strings.HasSuffix $.dir "/partials/components") }}
+          {{ if not (strings.HasPrefix .Name "styleguide_") }}          
+            <h2>{{ .Name }}</h2>
+            {{ $origComponent := printf "components/%v" .Name }}
+            {{ $renderComponent := $origComponent }}
+
+            {{ if (fileExists (printf "%v/styleguide_%v" $.dir .Name)) }}
+              {{ $renderComponent = (printf "components/styleguide_%v" .Name) }}
+            {{ end }}
+
+            {{ partial $renderComponent }}
+
+            <h3>Code</h3>
+
+            <pre>
+              <code>{{"{{"}} partial "{{ $origComponent }}" {{"}}"}}</code>
+            </pre>
+          {{ end}}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+{{end}}
+
+{{ range (slice "/themes") }}
+    {{ template "load-components" (dict "dir" .) }}
+{{ end }}

@@ -2,7 +2,11 @@
     {{ range (readDir .dir) }}
         {{ $path := printf "%v/%v" $.dir .Name }}
         {{ if .IsDir }}
-            {{ template "assets" (dict "dir" $path) }}
+            {{ if (strings.HasSuffix $path "-dev") }}
+                {{ return }}
+            {{ else }}
+                {{ template "assets" (dict "dir" $path) }}
+            {{ end }}
         {{ else }}
             <!-- For each static directory we want to strip anything before static -->
             {{ $sections := split $path "static" }}
@@ -21,6 +25,6 @@
     {{ end }}
 {{end}}
 
-{{ range .staticDirs }}
+{{ range (slice "/themes") }}
     {{ template "assets" (dict "dir" .) }}
 {{ end }}

@@ -101,6 +101,10 @@ class Typography {
 }
 
 window.addEventListener('load', () => {
+    if (!document.querySelector(CONTAINER_SELECTOR)) {
+        return
+    }
+
     const t = new Typography();
     t.updateTypeInfo();
     setInterval(() => {

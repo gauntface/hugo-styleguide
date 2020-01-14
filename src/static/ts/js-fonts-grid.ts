@@ -15,5 +15,9 @@ class FontsTable extends VariableGroup {
 }
 
 window.addEventListener('load', function() {
+    if (!document.querySelector(FONTS_CONTAINER_SELECTOR)) {
+        return
+    }
+
     new FontsTable().render();
 });

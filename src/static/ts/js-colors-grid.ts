@@ -126,7 +126,11 @@ class ColorPalette extends VariableGroup {
 }
 
 window.addEventListener('load', function() {
-    new ColorPalette().render();
+  if (!document.querySelector(COLORS_CONTAINER_SELECTOR)) {
+    return
+  }
+
+  new ColorPalette().render();
 });
 
 interface RGBColor {

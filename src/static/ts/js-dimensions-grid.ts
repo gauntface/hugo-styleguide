@@ -16,5 +16,8 @@ class DimensTable extends VariableGroup {
 }
 
 window.addEventListener('load', function() {
+    if (!document.querySelector(DIMENS_SELECTOR)) {
+        return
+    }
     new DimensTable().render();
 });

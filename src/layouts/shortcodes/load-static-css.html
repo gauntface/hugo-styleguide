@@ -13,7 +13,7 @@
       {{ $path = index $sections 1 }}
 
       {{ if strings.HasSuffix $path $.suffix  }}
-        <link rel="stylesheet" href="{{ $path }}">
+        <link rel="stylesheet" href="{{ $path }}" class="hopin-styleguide load-static-css">
       {{ end }}
     {{ end }}
   {{ end }}

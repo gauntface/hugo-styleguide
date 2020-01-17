@@ -36,7 +36,7 @@ class ClassName {
                     rawSelector: r.selectorText,
                     currentSelector: s,
                   });
-                  const namespace = results[1];
+                  const namespace = results[1] || '';
                   const type = results[2];
                   const body = results[3];
                   const element = results[4];
@@ -131,7 +131,12 @@ class ClassName {
       const namespaces = Object.keys(report.namespaces).sort();
       for (const namespace of namespaces) {
           const titleEle = document.createElement('h2');
-          titleEle.textContent = namespace ? `Namespace: ${namespace}` : 'No Namespace';
+          if (namespace) {
+            titleEle.textContent = `Namespace: ${namespace}`;
+          } else {
+            titleEle.textContent = 'No Namespace';
+          }
+          
           namespaceSection.appendChild(titleEle);
 
           const types = Object.keys(report.namespaces[namespace].types).sort();

@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "description": "This repo contains a theme to use with hopin-styleguide-content..",
   "scripts": {
-    "build": "rm -rf ../hopin-styleguide/* && mkdir -p ../hopin-styleguide && gulp build && cp -r ./build/* ../hopin-styleguide/"
+    "build": "npm install && rm -rf ../hopin-styleguide-build/* && mkdir -p ../hopin-styleguide-build && gulp build && cp -r ./build/* ../hopin-styleguide-build/"
   },
   "devDependencies": {
     "@hopin/wbt-clean": "0.0.30",

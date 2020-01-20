@@ -8,24 +8,24 @@
   {{end}}
 </head>
 <body>
-  <div class="n-hopin l-main">
+  <div class="n-hopin-l-main">
     <input type="checkbox" id="n-hopin-l-main__sidebar-checkbox" />
 
-    <div class="n-hopin l-main__header">
+    <div class="n-hopin-l-main__header">
       {{ partial "components/styleguide-header" }}
     </div>
 
-    <div class="n-hopin l-main__content">
-      <main class="n-hopin l-main__inner">
+    <div class="n-hopin-l-main__content">
+      <main class="n-hopin-l-main__inner">
         {{- block "main" . }}{{- end }}
       </main>
     </div>
 
-    <div class="n-hopin l-main__sidebar">
+    <div class="n-hopin-l-main__sidebar">
       {{ partial "components/styleguide-sidebar" . }}
     </div>
 
-    <label class="n-hopin l-main__backdrop" for="n-hopin-l-main__sidebar-checkbox"></label>
+    <label class="n-hopin-l-main__backdrop" for="n-hopin-l-main__sidebar-checkbox"></label>
   </div>
 </body>
 </html>

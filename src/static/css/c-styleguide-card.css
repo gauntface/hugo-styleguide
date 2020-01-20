@@ -1,14 +1,14 @@
-.n-hopin.c-styleguide-card {
+.n-hopin-c-styleguide-card {
   display: flex;
     flex-direction: column;
     width: 100%;
 }
 
-.n-hopin.c-styleguide-card--link {
+.n-hopin-c-styleguide-card--link {
   text-decoration: none;
 }
 
-.n-hopin.c-styleguide-card--content {
+.n-hopin-c-styleguide-card--content {
   display: inline-flex;
     justify-content: center;
     align-items: center;
@@ -29,7 +29,7 @@
     font-size: var(--hopin-home-item-font-size, 3em);
 }
 
-.n-hopin.c-styleguide-card--footer {
+.n-hopin-c-styleguide-card--footer {
   font-weight: bold;
     font-size: var(--hopin-home-item-font-size, 1.4em);
 }

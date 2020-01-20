@@ -1,4 +1,4 @@
-const CLASSNAMES_CONTAINER_SELECTOR = '.n-hopin.js-classnames';
+const CLASSNAMES_CONTAINER_SELECTOR = '.n-hopin-js-classnames';
 
 class ClassName {
   generateReport(): ClassNameReport {

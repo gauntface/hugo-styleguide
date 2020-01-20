@@ -1,15 +1,15 @@
-.n-hopin.c-layouts-card--left, .n-hopin.c-layouts-card--right, .n-hopin.c-layouts-card--bottom {
+.n-hopin-c-layouts-card--left, .n-hopin-c-layouts-card--right, .n-hopin-c-layouts-card--bottom {
   stroke: var(--hopin-home-item-outline, #454545);
 }
 
-.n-hopin.c-layouts-card--left {
+.n-hopin-c-layouts-card--left {
   fill: var(--hopin-home-item-color-2, #00aeef);
 }
 
-.n-hopin.c-layouts-card--right {
+.n-hopin-c-layouts-card--right {
   fill: var(--hopin-home-item-color-3, #ec008c);
 }
 
-.n-hopin.c-layouts-card--bottom {
+.n-hopin-c-layouts-card--bottom {
   fill: var(--hopin-home-item-color-1, #fff200);
 }

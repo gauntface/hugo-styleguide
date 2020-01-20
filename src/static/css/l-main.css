@@ -1,5 +1,5 @@
 @import "./variables/z-index.css";
-.n-hopin.l-main {
+.n-hopin-l-main {
   display: grid;
   grid-template-areas: "content";
   grid-template-rows:    1fr;
@@ -8,7 +8,7 @@
   height: 100%;
 }
 
-.n-hopin.l-main__header {
+.n-hopin-l-main__header {
   position: absolute;
   top: 0;
   left: 0;
@@ -26,7 +26,7 @@ This is a trick to get better performance for drop shadow animation
 See https://tobiasahlin.com/blog/how-to-animate-box-shadow/
 
 */
-.n-hopin.l-main__header:after {
+.n-hopin-l-main__header:after {
   content: '';
   will-change: opacity;
   position: absolute;
@@ -39,11 +39,11 @@ See https://tobiasahlin.com/blog/how-to-animate-box-shadow/
   transition: opacity 400ms ease-in-out;
 }
 
-.n-hopin.l-main__header-title {
+.n-hopin-l-main__header-title {
   font-weight: var(--hopin-header-font-weight, normal);
 }
 
-.n-hopin.l-main__sidebar {
+.n-hopin-l-main__sidebar {
   grid-area: sidebar;
   position: absolute;
   width: 280px;
@@ -55,7 +55,7 @@ See https://tobiasahlin.com/blog/how-to-animate-box-shadow/
   will-change: left;
 }
 
-.n-hopin.l-main__backdrop {
+.n-hopin-l-main__backdrop {
   position: absolute;
   width: 100%;
   height: calc(100% - 80px);
@@ -74,33 +74,33 @@ See https://tobiasahlin.com/blog/how-to-animate-box-shadow/
   visibility: hidden;
 }
 
-#n-hopin-l-main__sidebar-checkbox:checked ~ .n-hopin.l-main__header:after {
+#n-hopin-l-main__sidebar-checkbox:checked ~ .n-hopin-l-main__header:after {
   opacity: 1;
 }
 
-#n-hopin-l-main__sidebar-checkbox:checked ~ .n-hopin.l-main__sidebar {
+#n-hopin-l-main__sidebar-checkbox:checked ~ .n-hopin-l-main__sidebar {
   left: 0;
 }
 
-#n-hopin-l-main__sidebar-checkbox:checked ~ .n-hopin.l-main__backdrop {
+#n-hopin-l-main__sidebar-checkbox:checked ~ .n-hopin-l-main__backdrop {
   opacity: 0.9;
   user-select: none;
   pointer-events: all;
 }
 
-.n-hopin.l-main__content {
+.n-hopin-l-main__content {
   margin-top:80px;
   padding: var(--hopin-main-content-vert-padding, 45px) var(--hopin-main-content-hori-padding, 48px);
   grid-area: content;
   overflow-y: auto;
 }
 
-.n-hopin.l-main__inner {
+.n-hopin-l-main__inner {
   position: relative;
 }
 
 @media (min-width: 960px) {
-  .n-hopin.l-main {
+  .n-hopin-l-main {
     display: grid;
     grid-template-areas: "sidebar content";
     grid-template-rows:    1fr;
@@ -109,7 +109,7 @@ See https://tobiasahlin.com/blog/how-to-animate-box-shadow/
     height: 100%;
   }
 
-  .n-hopin.l-main__sidebar {
+  .n-hopin-l-main__sidebar {
     position: relative;
     margin-top: 80px;
     left: 0;

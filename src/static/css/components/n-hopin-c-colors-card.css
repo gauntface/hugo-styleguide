@@ -1,3 +1,5 @@
+/* This sets the color for the colors icon show on the
+home page */
 .n-hopin-c-colors-card--right-circle {
   fill: var(--hopin-home-item-color-2, #00aeef);
 }

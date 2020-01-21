@@ -1,5 +1,5 @@
 {{ define "main" }}
-
+{{ partial "layouts/main-open.html" . }}
 {{.Content}}
-
+{{ partial "layouts/main-close.html" . }}
 {{ end }}

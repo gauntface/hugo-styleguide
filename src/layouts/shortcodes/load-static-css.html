@@ -2,11 +2,7 @@
   {{- range (readDir $.dir) -}}
     {{- $path := printf "%v/%v" $.dir .Name -}}
     {{- if .IsDir -}}
-      {{- if or (strings.HasSuffix $path "-dev") (strings.HasPrefix $path "/themes/hopin-styleguide") -}}
-        {{- return -}}
-      {{- else -}}
-        {{- template "load-static-css" (dict "suffix" $.suffix "dir" $path) -}}
-      {{- end -}}
+      {{- template "load-static-css" (dict "suffix" $.suffix "dir" $path) -}}
     {{- else -}}
       <!-- For each static directory we want to strip anything before static -->
       {{- $sections := split $path "static" -}}

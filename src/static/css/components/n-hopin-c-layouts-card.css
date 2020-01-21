@@ -1,3 +1,5 @@
+/* This sets the color for the layouts icon show on the
+home page */
 .n-hopin-c-layouts-card--left, .n-hopin-c-layouts-card--right, .n-hopin-c-layouts-card--bottom {
   stroke: var(--hopin-home-item-outline, #454545);
 }

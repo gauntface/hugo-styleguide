@@ -2,19 +2,19 @@ import {VariableGroup, Variable} from './_variable-group';
 import {copyToClipboard} from './_clipboard';
 
 const COLORS_SUFFIX = 'colors.css';
-const COLORS_CONTAINER_SELECTOR = '.n-hopin-js-colors-grid';
+const namespace = 'n-hopin-';
+const COLORS_CONTAINER_SELECTOR = `.${namespace}js-colors-grid`;
 
-const NAMESPACE_CLASS = 'n-hopin';
-const SWATCH_GROUP_CLASS = 'c-swatch-group';
-const SWATCH_CLASS = 'c-swatch';
-const SWATCH_HEX_CLASS = 'c-swatch__hex-value';
-const SWATCH_VAR_NAME_CLASS = 'c-swatch__var-value';
-const SWATCH_HEX_LIGHT_COLOR = 'c-swatch__hex--light-color';
-const SWATCH_HEX_DARK_COLOR = 'c-swatch__hex--dark-color';
-const SWATCH_COLOR_CLASS = 'c-swatch__color';
-const SWATCH_FOOTER_CLASS = 'c-swatch__footer';
-const SWATCH_NAME_CLASS = 'c-swatch__name';
-const SWATCH_COPY_CLASS = 'c-swatch__copytext';
+const SWATCH_GROUP_CLASS = `${namespace}c-swatch-group`;
+const SWATCH_CLASS = `${namespace}c-swatch`;
+const SWATCH_HEX_CLASS = `${namespace}c-swatch__hex-value`;
+const SWATCH_VAR_NAME_CLASS = `${namespace}c-swatch__var-value`;
+const SWATCH_HEX_LIGHT_COLOR = `${namespace}c-swatch__hex--light-color`;
+const SWATCH_HEX_DARK_COLOR = `${namespace}c-swatch__hex--dark-color`;
+const SWATCH_COLOR_CLASS = `${namespace}c-swatch__color`;
+const SWATCH_FOOTER_CLASS = `${namespace}c-swatch__footer`;
+const SWATCH_NAME_CLASS = `${namespace}c-swatch__name`;
+const SWATCH_COPY_CLASS = `${namespace}c-swatch__copytext`;
 
 class ColorPalette extends VariableGroup {
     constructor() {
@@ -23,17 +23,14 @@ class ColorPalette extends VariableGroup {
 
     renderData(variables: Variable[]): HTMLElement[] {
         const swatchGroup = document.createElement('div');
-        swatchGroup.classList.add(NAMESPACE_CLASS);
         swatchGroup.classList.add(SWATCH_GROUP_CLASS);
         for (const v of variables) {
             // Use c.value to get the actual color value
             const hexValue = document.createElement('span');
-            hexValue.classList.add(NAMESPACE_CLASS);
             hexValue.classList.add(SWATCH_HEX_CLASS);
             hexValue.textContent = v.value;
     
             const varName = document.createElement('span');
-            varName.classList.add(NAMESPACE_CLASS);
             varName.classList.add(SWATCH_VAR_NAME_CLASS);
             varName.textContent = v.variableName;
     
@@ -50,23 +47,19 @@ class ColorPalette extends VariableGroup {
             }
     
             const swatchColor = document.createElement('div');
-            swatchColor.classList.add(NAMESPACE_CLASS);
             swatchColor.classList.add(SWATCH_COLOR_CLASS);
             swatchColor.style.backgroundColor = `var(${v.variableName})`;
             swatchColor.appendChild(varName);
             swatchColor.appendChild(hexValue);
     
             const swatchFooter = document.createElement('div');
-            swatchFooter.classList.add(NAMESPACE_CLASS);
             swatchFooter.classList.add(SWATCH_FOOTER_CLASS);
     
             const colorName = document.createElement('span');
-            colorName.classList.add(NAMESPACE_CLASS);
             colorName.classList.add(SWATCH_NAME_CLASS);
             colorName.textContent = v.prettyName;
     
             const copyText = document.createElement('div');
-            copyText.classList.add(NAMESPACE_CLASS);
             copyText.classList.add(SWATCH_COPY_CLASS);
             copyText.textContent = 'Copy';
     
@@ -74,7 +67,6 @@ class ColorPalette extends VariableGroup {
             swatchFooter.appendChild(copyText);
     
             const swatch = document.createElement('div');
-            swatch.classList.add(NAMESPACE_CLASS);
             swatch.classList.add(SWATCH_CLASS);
             swatch.appendChild(swatchColor);
             swatch.appendChild(swatchFooter);

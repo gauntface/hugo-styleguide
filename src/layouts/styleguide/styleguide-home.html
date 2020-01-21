@@ -1,21 +1,25 @@
+{{ define "show-card"}}
+  {{ if or .Params.CardPartial .Params.CardContent }}
+  {{ partial "components/styleguide-card.html" . }}
+  {{ end }}
+{{ end }}
+
 {{ define "main" }}
+{{ partial "layouts/main-open.html" . }}
 
 <div class="n-hopin-l-list-grid">
   <!-- First display the regular pages -->
   {{ $pages := where $.Site.RegularPages "Section" "styleguide"}}
   {{ range $pages }}
-    {{ if (not .Params.ExcludeFromHome) }}
-      {{ partial "components/styleguide-card.html" . }}
-    {{ end }}
+    {{ template "show-card" . }}
   {{ end }}
 
   <!-- Then display the index pages for subsections -->
   {{ $sections := (.Site.GetPage "section" "styleguide").Sections }}
   {{ range $sections }}
-    {{ if (not .Params.ExcludeFromHome) }}
-      {{ partial "components/styleguide-card.html" . }}
-    {{ end }}
+    {{ template "show-card" . }}
   {{ end }}
 </div>
 
+{{ partial "layouts/main-close.html" . }}
 {{ end }}

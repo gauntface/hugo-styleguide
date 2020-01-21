@@ -1,3 +1,5 @@
+/* This sets the color of the components icon shown on the home
+page */
 .n-hopin-c-components-card--fill {
   fill: var(--hopin-home-item-outline, #454545);
 }

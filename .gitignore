@@ -1,6 +1,7 @@
 node_modules/
-*.js
 *.js.map
 *.d.ts
 *.min.css
 build/
+*-build/
+example/themes/hopin-styleguide-build/

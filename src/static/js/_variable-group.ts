@@ -1,14 +1,14 @@
 import { friendlyName, friendlyNameFromURL } from "./_friendly-name";
 
-const NAMESPACE_CLASS = 'n-hopin';
-const GROUP_CONTAINER_CLASS = 'c-variable-group';
-const GROUP_TITLE_CLASS = 'c-variable-group__title';
+const namespace = 'n-hopin-';
+const GROUP_CONTAINER_CLASS = `${namespace}c-variable-group`;
+const GROUP_TITLE_CLASS = `${namespace}c-variable-group__title`;
 
 export abstract class VariableGroup {
     constructor(private containerSelector: string, private fileSuffix: string) {}
 
     getGroups(): Group[] {
-        const groups: Group[] = [];
+        const groups: { [key: string]: Group; } = {};
         for (const s of document.styleSheets) {
             try {
                 if (!s.href) {
@@ -17,6 +17,10 @@ export abstract class VariableGroup {
 
                 if (s.href.lastIndexOf(this.fileSuffix) !== s.href.length - this.fileSuffix.length) {
                     continue;
+                }
+
+                if (groups[s.href]) {
+                  continue;
                 }
 
                 const group: Group = {
@@ -46,14 +50,14 @@ export abstract class VariableGroup {
                         }
                     }
                 }
-                groups.push(group);
+                groups[s.href] = group;
             } catch (err) {
                 // External stylesheets will not be accessible from JavaScript
                 // in which case this error will be thrown.
                 console.error(`Unable to read styles for ${s.href}`, err);
             }
         }
-        return groups;
+        return Object.values(groups);
     }
 
     render() {
@@ -67,12 +71,10 @@ export abstract class VariableGroup {
         console.log(`Rendering the following groups:`, groups);
         for (const g of groups) {
             const groupContainer = document.createElement('section');
-            groupContainer.classList.add(NAMESPACE_CLASS);
             groupContainer.classList.add(GROUP_CONTAINER_CLASS);
 
             if (g.prettyName) {
                 const title = document.createElement('h2');
-                title.classList.add(NAMESPACE_CLASS);
                 title.classList.add(GROUP_TITLE_CLASS);
                 title.textContent = g.prettyName;
                 groupContainer.appendChild(title);

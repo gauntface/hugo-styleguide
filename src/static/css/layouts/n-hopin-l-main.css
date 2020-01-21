@@ -1,4 +1,4 @@
-@import "./variables/z-index.css";
+@import "../variables/z-index.css";
 .n-hopin-l-main {
   display: grid;
   grid-template-areas: "content";

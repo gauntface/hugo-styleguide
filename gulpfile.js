@@ -5,6 +5,7 @@ const css = require('@hopin/wbt-css');
 const clean = require('@hopin/wbt-clean');
 const {promisify} = require('util');
 const exec = promisify(require('child_process').exec);
+const fs = require('fs-extra');
 
 const themeSrc = path.join(__dirname, 'src');
 const themeDst = path.join(__dirname, 'build');

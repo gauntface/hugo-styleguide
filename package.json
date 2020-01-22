@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "description": "This repo contains a theme to use with hopin-styleguide-content..",
   "scripts": {
-    "build": "npm install && gulp build-into-site"
+    "build-into-site": "npm install && gulp build-into-site"
   },
   "devDependencies": {
     "@hopin/wbt-clean": "0.0.30",

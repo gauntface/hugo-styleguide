@@ -3,6 +3,8 @@ const path = require('path');
 const tsBrowser = require('@hopin/wbt-ts-browser'); 
 const css = require('@hopin/wbt-css');
 const clean = require('@hopin/wbt-clean');
+const {promisify} = require('util');
+const exec = promisify(require('child_process').exec);
 
 const themeSrc = path.join(__dirname, 'src');
 const themeDst = path.join(__dirname, 'build');
@@ -66,3 +68,12 @@ gulp.task('build', gulp.series(
 gulp.task('watch', () => gulp.watch([path.join(themeSrc, '**', '*')], {
   ignoreInitial: false,
 }, gulp.series('build')))
+
+gulp.task('update-submodules',
+  gulp.series(
+    async () => {
+      const {stdout, stderr} = await exec(`git submodule update --init --remote`);
+      console.log(stdout, stderr);
+    },
+  )
+);

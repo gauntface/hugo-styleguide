@@ -1,6 +1,6 @@
 {{ define "show-card"}}
   {{ if or .Params.CardPartial .Params.CardContent }}
-  {{ partial "components/styleguide-card.html" . }}
+  {{ partial "components/styleguide-card.html" (dict "Title" .Title "RelPermalink" .RelPermalink "CardPartial" .Params.CardPartial "CardContent" .Params.CardContent) }}
   {{ end }}
 {{ end }}
 

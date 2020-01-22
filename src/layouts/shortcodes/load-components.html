@@ -1,34 +1,42 @@
-{{ define "load-components" }}
-    {{ range (readDir $.dir) }}
-      {{ $path := printf "%v/%v" $.dir .Name }}
-      {{ if .IsDir }}
-        {{ if not (or (strings.HasSuffix $path "-dev") (strings.HasPrefix $path "/themes/hopin-styleguide") ) }}
-          {{ template "load-components" (dict "dir" $path) }}
-        {{ end }}
-      {{ else }}
-        {{ if (strings.HasSuffix $.dir "/partials/components") }}
-          {{ if not (strings.HasPrefix .Name "styleguide_") }}          
-            <h2>{{ .Name }}</h2>
-            {{ $origComponent := printf "components/%v" .Name }}
-            {{ $renderComponent := $origComponent }}
+{{ define "components-file" }}
+  {{ $path := path.Dir $.filePath }}
+  {{ $fileExt := path.Ext $.filePath }}
+  {{ $fileName :=  strings.TrimSuffix $fileExt (path.Base $.filePath) }}
+  {{ if (strings.HasSuffix $path "/partials/components") }}
+    {{ if not (strings.HasSuffix $fileName "_styleguide") }}
+      <h2>{{ $fileName }}</h2>
+      {{ $origComponent := printf "components/%v%v" $fileName $fileExt }}
+      {{ $renderComponent := $origComponent }}
 
-            {{ if (fileExists (printf "%v/styleguide_%v" $.dir .Name)) }}
-              {{ $renderComponent = (printf "components/styleguide_%v" .Name) }}
-            {{ end }}
-
-            {{ partial $renderComponent }}
-
-            <h3>Code</h3>
-
-            <pre>
-              <code>{{"{{"}} partial "{{ $origComponent }}" {{"}}"}}</code>
-            </pre>
-          {{ end}}
-        {{ end }}
+      {{ $styleguideSpecific := printf "%v/%v_styleguide.html" $path $fileName }}
+      {{ if (fileExists $styleguideSpecific) }}
+        {{ $renderComponent = printf "components/%v_styleguide.html" $fileName }}
       {{ end }}
+
+      {{ partial $renderComponent $.ctx.Page }}
+
+      <h3>Code</h3>
+
+      <pre>
+        <code>{{"{{"}} partial "{{ $origComponent }}" {{"}}"}}</code>
+      </pre>
     {{ end }}
-{{end}}
+  {{ end }}
+{{ end }}
+
+{{ define "components-dir" }}
+  {{ range (readDir $.dir) }}
+    {{ $path := printf "%v/%v" $.dir .Name }}
+    {{ if .IsDir }}
+      {{ template "components-dir" (dict "dir" $path "ctx" $.ctx) }}
+    {{ else }}
+      {{ template "components-file" (dict "filePath" $path "ctx" $.ctx) }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{ $ctx := .}}
 
 {{ range (slice "/themes") }}
-    {{ template "load-components" (dict "dir" .) }}
+    {{ template "components-dir" (dict "dir" . "ctx" $ctx) }}
 {{ end }}

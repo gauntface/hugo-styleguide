@@ -1,14 +1,14 @@
-<a href="{{ .RelPermalink }}" class="n-hopin-c-styleguide-card--link">
+<a href="{{ $.RelPermalink }}" class="n-hopin-c-styleguide-card--link">
   <div class="n-hopin-c-styleguide-card">
     <div class="n-hopin-c-styleguide-card--content">
-      {{ if .Params.CardPartial }}
-        {{ partial .Params.CardPartial }}
+      {{ if $.CardPartial }}
+        {{ partial $.CardPartial }}
       {{ else }}
-        {{ .Params.CardContent }}
+        {{ $.CardContent }}
       {{ end }}
     </div>
     <div class="n-hopin-c-styleguide-card--footer">
-      <p>{{ .Title }}</p>
+      <p>{{ $.Title }}</p>
     </div>
   </div>
 </a>

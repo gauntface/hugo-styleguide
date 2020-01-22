@@ -8,7 +8,7 @@ const exec = promisify(require('child_process').exec);
 
 const themeSrc = path.join(__dirname, 'src');
 const themeDst = path.join(__dirname, 'build');
-const themeName = 'hopin-styleguide-theme';
+const themeName = 'hopin-styleguide';
 const themeInSitePath = path.join(__dirname, '..', '..', `themes`, `${themeName}-build`);
 
 gulp.task('clean', gulp.series(

@@ -1,3 +1,6 @@
 [submodule "example/content/styleguide"]
 	path = example/content/styleguide
 	url = git@github.com:gauntface/hopin-styleguide-content.git
+[submodule "example/themes-src/hopin-base-theme"]
+	path = example/themes-src/hopin-base-theme
+	url = https://github.com/gauntface/hopin-base-theme.git

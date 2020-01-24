@@ -1,8 +1,8 @@
-.n-hopin-c-dimensions-card--square {
+.n-hopin-styleguide-c-dimensions-card--square {
   stroke: var(--hopin-home-item-outline, #454545);
   fill: var(--hopin-home-item-color-1, #fff200);
 }
 
-.n-hopin-c-dimensions-card--rule {
+.n-hopin-styleguide-c-dimensions-card--rule {
   stroke: var(--hopin-home-item-color-3, #ec008c);
 }

@@ -2,7 +2,7 @@ import {VariableGroup, Variable} from './_variable-group';
 import {createVariableTable} from './_create-table';
 
 const FONTS_SUFFIX = 'fonts.css';
-const FONTS_CONTAINER_SELECTOR = '.n-hopin-js-fonts-grid';
+const FONTS_CONTAINER_SELECTOR = '.n-hopin-styleguide-js-fonts-grid';
 
 class FontsTable extends VariableGroup {
     constructor() {

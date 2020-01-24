@@ -1,4 +1,4 @@
-.n-hopin-c-styleguide-header {
+.n-hopin-styleguide-c-styleguide-header {
   width: 100%;
 
   display: flex;
@@ -7,19 +7,19 @@
   background-color: var(--hopin-background-color, #dcdde1);
 }
 
-.n-hopin-c-styleguide-header__btn {
+.n-hopin-styleguide-c-styleguide-header__btn {
   padding: var(--hopin-header-logo-hori-padding, 16px);
 }
 
-.n-hopin-c-styleguide-header__btn svg {
+.n-hopin-styleguide-c-styleguide-header__btn svg {
   fill: var(--hopin-header-menu-color, black);
 }
 
-.n-hopin-c-styleguide-header__btn-label {
+.n-hopin-styleguide-c-styleguide-header__btn-label {
   user-select: none;
 }
 
-.n-hopin-c-styleguide-header__logo {
+.n-hopin-styleguide-c-styleguide-header__logo {
   display: var(--hopin-header-logo-display, none);
   width: var(--hopin-header-logo-size, 70px);
   height: var(--hopin-header-logo-size, 70px);
@@ -30,27 +30,27 @@
   margin: var(--hopin-header-logo-vert-padding, 15px) var(--hopin-header-logo-hori-padding, 16px);
 }
 
-.n-hopin-c-styleguide-header__title {
+.n-hopin-styleguide-c-styleguide-header__title {
   color: var(--hopin-header-menu-color, black);
   font-weight: var(--hopin-header-font-weight, normal);
   font-size: var(--hopin-header-font-size, 24px);
   flex: 1;
 }
 
-.n-hopin-c-styleguide-header__title a {
+.n-hopin-styleguide-c-styleguide-header__title a {
   color: inherit;
 }
 
-.n-hopin-c-styleguide-header__link {
+.n-hopin-styleguide-c-styleguide-header__link {
   text-decoration: none;
 }
 
 @media (min-width: 960px) {
-  .n-hopin-c-styleguide-header {
+  .n-hopin-styleguide-c-styleguide-header {
       padding: 0 var(--hopin-main-content-hori-padding, 48px);
   }
 
-  .n-hopin-c-styleguide-header__menu {
+  .n-hopin-styleguide-c-styleguide-header__menu {
       display: none;
   }
 }

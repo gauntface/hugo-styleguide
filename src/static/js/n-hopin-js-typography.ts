@@ -1,6 +1,6 @@
-const CONTAINER_SELECTOR = '.n-hopin-js-typography';
-const ORIG_TEXT_ATTRIB = 'n-hopin-typograhy_orig_text';
-const DETAILS_CLASS_SELECTOR = 'n-hopin-js-font-details';
+const CONTAINER_SELECTOR = '.n-hopin-styleguide-js-typography';
+const ORIG_TEXT_ATTRIB = 'n-hopin-styleguide-typograhy_orig_text';
+const DETAILS_CLASS_SELECTOR = 'n-hopin-styleguide-js-font-details';
 
 class Typography {
     container: HTMLElement;

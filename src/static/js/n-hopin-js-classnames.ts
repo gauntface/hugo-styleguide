@@ -1,4 +1,4 @@
-const CLASSNAMES_CONTAINER_SELECTOR = '.n-hopin-js-classnames';
+const CLASSNAMES_CONTAINER_SELECTOR = '.n-hopin-styleguide-js-classnames';
 
 class ClassName {
   generateReport(): ClassNameReport {
@@ -41,6 +41,10 @@ class ClassName {
                   const body = results[3];
                   const element = results[4];
                   const modifier = results[5];
+
+                  if (namespace == 'hopin-styleguide') {
+                    continue;
+                  }
 
                   if (!report.namespaces[namespace]) {
                     report.namespaces[namespace] = {

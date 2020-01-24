@@ -1,6 +1,6 @@
 import { friendlyName, friendlyNameFromURL } from "./_friendly-name";
 
-const namespace = 'n-hopin-';
+const namespace = 'n-hopin-styleguide-';
 const GROUP_CONTAINER_CLASS = `${namespace}c-variable-group`;
 const GROUP_TITLE_CLASS = `${namespace}c-variable-group__title`;
 

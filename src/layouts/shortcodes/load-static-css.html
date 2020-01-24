@@ -17,6 +17,6 @@
   {{- end -}}
 {{- end -}}
 
-{{- range (slice "") -}}
+{{- range (slice "/themes" "/static") -}}
     {{- template "load-static-css" (dict "suffix" $.Params.suffix "dir" .) -}}
 {{- end -}}

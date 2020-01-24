@@ -28,7 +28,9 @@
   {{ range (readDir $.dir) }}
     {{ $path := printf "%v/%v" $.dir .Name }}
     {{ if .IsDir }}
-      {{ template "components-dir" (dict "dir" $path "ctx" $.ctx) }}
+      {{ if not (eq $path "/themes/hopin-styleguide-build") }}
+        {{ template "components-dir" (dict "dir" $path "ctx" $.ctx) }}
+      {{ end }}
     {{ else }}
       {{ template "components-file" (dict "filePath" $path "ctx" $.ctx) }}
     {{ end }}

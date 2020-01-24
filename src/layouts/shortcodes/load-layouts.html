@@ -35,7 +35,9 @@
   {{ range (readDir $.dir) }}
     {{ $path := printf "%v/%v" $.dir .Name }}
     {{ if .IsDir }}
-      {{ template "layouts-dir" (dict "dir" $path "ctx" $.ctx) }}
+      {{ if not (eq $path "/themes/hopin-styleguide-build") }}
+        {{ template "layouts-dir" (dict "dir" $path "ctx" $.ctx) }}
+      {{ end }}
     {{ else }}
       {{ template "layouts-file" (dict "filePath" $path "ctx" $.ctx) }}
     {{ end }}

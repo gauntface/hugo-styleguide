@@ -1,5 +1,4 @@
 baseURL = "http://example.org/"
 languageCode = "en-us"
 title = "My New Hugo Site"
-theme= ["hopin-styleguide-build", "hopin-base-theme-build"]
-ignorefiles = [ "themes-src/.*" ]
+theme= ["example-theme", "hopin-styleguide"]

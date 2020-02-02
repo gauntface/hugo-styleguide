@@ -193,7 +193,7 @@ class ClassName {
       const sortedElements = Object.keys(elements).sort();
       for (const element of sortedElements) {
           const nameLi = document.createElement('li');
-          nameLi.textContent = `↳ ${element}`;
+          nameLi.textContent = `&#8627; ${element}`;
           elementList.appendChild(nameLi);
 
           const modifiers = elements[element].modifiers;

@@ -8,10 +8,12 @@
 {{ partial "styleguide/layouts/main-open.html" . }}
 
 <div class="n-hopin-styleguide-l-list-grid">
+  {{ $sectionName := $.Site.Params.styleguideSection }}
+
   <!-- First display the regular pages -->
   {{ $pages := $.Site.RegularPages }}
-  {{if $.Site.Params.styleguidesection }}
-    {{ $pages = where $.Site.RegularPages "Section" $.Site.Params.styleguideSection }}
+  {{if $sectionName }}
+    {{ $pages = where $.Site.RegularPages "Section" $sectionName }}
   {{ end }}
   {{ range $pages }}
     {{ template "show-card" . }}
@@ -19,8 +21,8 @@
 
   <!-- Then display the index pages for subsections -->
   {{ $sections := $.Site.Sections }}
-  {{if $.Site.Params.styleguidesection }}
-    {{ $sections = ($.Site.GetPage "Section" $.Site.Params.styleguideSection).Sections }}
+  {{if $sectionName }}
+    {{ $sections = ($.Site.GetPage "Section" $sectionName).Sections }}
   {{ end }}
   {{ range $sections }}
     {{ template "show-card" . }}

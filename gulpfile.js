@@ -4,13 +4,12 @@ const tsBrowser = require('@hopin/wbt-ts-browser');
 const css = require('@hopin/wbt-css');
 const clean = require('@hopin/wbt-clean');
 const {promisify} = require('util');
-const exec = promisify(require('child_process').exec);
+const spawn = require('child_process').spawn;
 const fs = require('fs-extra');
+const hopinstyleguide = require('./index');
 
 const themeSrc = path.join(__dirname, 'src');
 const themeDst = path.join(__dirname, 'build');
-const themeName = 'hopin-styleguide';
-const themeInSitePath = path.join(__dirname, '..', '..', `themes`, `${themeName}-build`);
 
 gulp.task('clean', gulp.series(
   clean.gulpClean({
@@ -51,30 +50,57 @@ gulp.task('build', gulp.series(
   ),
 ))
 
-gulp.task('copy-into-site', async () => {
-  const exists = await fs.exists(themeInSitePath);
-  if (exists) {
-    await fs.remove(themeInSitePath);
-  }
-  await fs.mkdirp(themeInSitePath);
-  await fs.copy(themeDst, themeInSitePath);
+/**
+ * The following are tasks are helpful for local dev and testing
+ */
+
+gulp.task('copy-styleguide', async () => {
+  const themeDir = path.join(__dirname, 'example', 'themes', 'hopin-styleguide')
+  const contentDir = path.join(__dirname, 'example', 'content');
+
+  await fs.remove(themeDir);
+  await fs.remove(contentDir);
+
+  await hopinstyleguide.copyTheme(themeDir);
+  await hopinstyleguide.copyContent(contentDir);
 })
 
-gulp.task('build-into-site', gulp.series(
-  'build',
-  'copy-into-site',
-))
+function startServer() {
+  const serverInstance = spawn('hugo', ['server', '-D', '--ignoreCache'], {
+    stdio: 'inherit',
+    cwd: path.join(__dirname, 'example'),
+  });
+  serverInstance.on('error', (err) => {
+    console.error('Failed to run hugo server: ', err);
+  });
+  serverInstance.addListener('exit', (code) => {
+    console.error('Hugo server has exited: ', code);
+    setTimeout(startServer, 5000);
+  });
+}
 
+gulp.task('hugo-server',
+  gulp.series(startServer)
+);
 
-gulp.task('watch', () => gulp.watch([path.join(themeSrc, '**', '*')], {
-  ignoreInitial: false,
-}, gulp.series('build')))
+gulp.task('watch-theme', () => {
+  const opts = {};
+  return gulp.watch([path.join(themeSrc, '**', '*')], opts, gulp.series('build', 'copy-styleguide'));
+});
 
-gulp.task('update-submodules',
-  gulp.series(
-    async () => {
-      const {stdout, stderr} = await exec(`git submodule update --init --remote`);
-      console.log(stdout, stderr);
-    },
+gulp.task('watch-content', () => {
+  const opts = {};
+  return gulp.watch([path.join(__dirname, 'content', '**', '*')], opts, gulp.series('copy-styleguide'));
+});
+
+gulp.task('watch',
+  gulp.parallel(
+    'watch-theme',
+    'watch-content',
+    gulp.series(
+      'build',
+      'copy-styleguide',
+      'hugo-server',
+    ),
   )
 );

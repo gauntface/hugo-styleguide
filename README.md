@@ -4,22 +4,24 @@ This repo contains a theme to use with hopin-styleguide-content..
 
 ## Installing
 
-### Step 1A: Git submodule over SSH
+### Step 1: Install via NPM
 
 ```
-git submodule add git@github.com:gauntface/hopin-styleguide-hugo-theme.git themes-src/hopin-styleguide
+npm install --save @hopin/hugo-styleguide
 ```
 
-### Step 1B: Git submodule over HTTP
+### Step 2: Use via Gulp
 
 ```
-git submodule add https://github.com/gauntface/hopin-styleguide-hugo-theme.git themes-src/hopin-styleguide
-```
+const hopinstyleguide = require('@hopin/hugo-styleguide');
 
-### Step 2: Build Theme
+gulp.task('styleguide-theme', () => {
+  return hopinstyleguide.copyTheme(path.join(__dirname, `themes`, 'hopin-styleguide'));
+})
 
-```
-npm run build-into-site
+gulp.task('styleguide-content', () => {
+  return hopinstyleguide.copyContent(path.join(__dirname, `content`, 'styleguide'));
+})
 ```
 
 ### Step 3: Add to Config
@@ -33,6 +35,18 @@ Then add the `hopin-styleguide` to your sites config:
     "title": "...",
     "publishDir": ".public",
 
-    "theme": ["...", "hopin-styleguide-build"]
+    "theme": ["...", "hopin-styleguide"],
+}
+```
+
+### Step 4: Add parameters
+
+There are a few optional parameters you will might want to set in your site config:
+
+```
+{
+    "params": {
+        "styleguideSection": "styleguide"
+    }
 }
 ```

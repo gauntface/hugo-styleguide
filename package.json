@@ -8,7 +8,8 @@
   "description": "This repo contains a theme and content to generate a styleguide for hugo themes",
   "scripts": {
     "build": "gulp build",
-    "build-into-site": "npm install && gulp build-into-site"
+    "build-into-site": "npm install && gulp build-into-site",
+    "test": "ava ./test/*-test.js --verbose"
   },
   "devDependencies": {
     "@hopin/wbt-clean": "0.0.31",
@@ -18,8 +19,11 @@
     "gulp": "4.0.2"
   },
   "dependencies": {
+    "ava": "^3.1.0",
+    "dir-compare": "^2.2.0",
     "fs-extra": "8.1.0"
   },
+  "main": "index.js",
   "files": [
     "build/*",
     "content/*",

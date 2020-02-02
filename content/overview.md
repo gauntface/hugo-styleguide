@@ -2,6 +2,7 @@
 title: "Theme Overview"
 menu: "styleguide"
 weight: 6
+type: "styleguide"
 ---
 
 This page will include information on the CSS selectors used in your stylesheets.

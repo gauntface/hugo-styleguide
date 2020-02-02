@@ -5,6 +5,7 @@ weight: 3
 menu: 
   styleguide:
     parent: "Elements"
+type: "styleguide"
 ---
 
 # HTML Elements

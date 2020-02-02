@@ -5,6 +5,7 @@ weight: 2
 menu: 
   styleguide:
     parent: 'Variables'
+type: "styleguide"
 ---
 
 # Fonts

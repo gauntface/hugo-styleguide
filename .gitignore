@@ -3,5 +3,5 @@ node_modules/
 *.d.ts
 *.min.css
 build/
-*-build/
-example/themes/hopin-styleguide-build/
+example/themes/hopin-styleguide/
+example/content/

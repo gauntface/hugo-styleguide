@@ -1,10 +1,11 @@
 ---
 title: Components
-cardPartial: "svg/components-symbol.svg"
+cardPartial: "styleguide/svg/components-symbol.svg"
 weight: 4
 menu: 
   styleguide:
     parent: 'Partials'
+type: "styleguide"
 ---
 
 Components are picked up from partials/components/* and will add each partial to the page.

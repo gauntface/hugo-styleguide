@@ -1,10 +1,11 @@
 ---
 title: "Colors"
-cardPartial: "svg/colors-symbol.svg"
+cardPartial: "styleguide/svg/colors-symbol.svg"
 weight: 2
 menu: 
   styleguide:
     parent: 'Variables'
+type: "styleguide"
 ---
 
 # Colors

@@ -12,10 +12,7 @@ const themeSrc = path.join(__dirname, 'src');
 const themeDst = path.join(__dirname, 'build');
 
 gulp.task('clean', gulp.series(
-  clean.gulpClean({
-    src: themeSrc,
-    dst: themeDst,
-  }),
+  clean.gulpClean([themeDst]),
 ))
 
 gulp.task('typescript', gulp.series(

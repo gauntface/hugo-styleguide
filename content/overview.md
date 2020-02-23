@@ -11,13 +11,13 @@ The assumption is you are following the pattern of:
 
 ```
 .n-hopin-styleguide-c-my-component__sub-section--fancy
-|_______|_|___________|____________|_______|
-    |     |      |           |         |
-Namespace |      |           |         |
-        Type     |           |         |
-                Body         |         |
-                          Element      |
-                                    Modifier
+|__________________|_|___________|____________|_______|
+    |               |      |           |         |
+Namespace           |      |           |         |
+                  Type     |           |         |
+                          Body         |         |
+                                    Element      |
+                                             Modifier
 ```
 
 The namespace, element and modifier are optional, so you can
@@ -33,6 +33,6 @@ The `type` of a selector should be one of the following:
 - `l` Layout
 - `u` Utility
 
-{{< load-static-css suffix="" >}}
+{{< load-static-css suffix=".css" >}}
 
 {{< load-partial "styleguide/components/styleguide-overview-classnames.html" >}}

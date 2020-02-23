@@ -5,4 +5,5 @@ menu:
   styleguide:
     weight: 1
 type: "styleguide"
+layout: "home"
 ---

@@ -1,7 +1,25 @@
-.n-example-c-my-component {}
+.n-example-1-c-my-component {}
 
-.n-example-c-my-component--fancy {}
+.n-example-1-c-my-component--fancy {}
 
-.n-example-c-my-component__title {}
+.n-example-1-c-my-component__title {}
 
-.n-example-c-my-component__title--fancy {}
+.n-example-1-c-my-component__title--fancy {}
+
+.n-example-1-c-my-component__body {}
+
+.n-example-1-c-my-component__body--fancy {}
+
+.n-example-1-c-my-component--subtle {}
+
+.n-other-namespace-c-my-component__body {}
+
+.n-other-namespace-c-my-component__body--fancy {}
+
+.n-other-namespace-c-my-component--subtle {}
+
+.c-my-component {}
+
+.c-my-component__title {}
+
+.c-my-component__title--fancy {}

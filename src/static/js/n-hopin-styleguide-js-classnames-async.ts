@@ -106,7 +106,6 @@ class ClassName {
       const orderedBEM = this.orderedBEMSelectors(reports);
 
       this.renderBEMList(orderedBEM, containerElement);
-      console.log(orderedBEM);
 
       /* const tableReport = this.convertToTableReport(reports);
       console.log(`Got table report: `, tableReport);
@@ -115,28 +114,60 @@ class ClassName {
   }
 
   renderBEMList(selectors: BEMSelector[], container: Element) {
-    for (const s of selectors) {
-      const sElement = document.createElement('div');
-      const pieces: string[] = [];
-      if (s.namespace) {
-        pieces.push(`n-${s.namespace}`);
+    const grouped = this.groupSelectors(selectors);
+    console.log(grouped);
+  }
+
+  groupSelectors(selectors: BEMSelector[]): BEMGroup[] {
+    return this.group(selectors, [
+      (s) => s.namespace,
+      (s) => s.type,
+      (s) => s.body,
+      (s) => s.element,
+      (s) => s.modifier,
+    ]);
+  }
+
+  group(selectors: BEMSelector[], namefns: ((s:BEMSelector) => string)[]): BEMGroup[] {
+    const groups: BEMGroup[] = [];
+
+    const currentNamefn = namefns.shift();
+    const groupedNamespaces = this.groupNames(selectors, currentNamefn);
+    
+    for (const groupedNamespace of groupedNamespaces) {
+      const group: BEMGroup = {
+        name: groupedNamespace.name,
+        count: groupedNamespace.count,
+        subgroups: [],
+      };
+
+      if (namefns.length > 0) {
+        const sg = this.group(groupedNamespace.selectors, namefns)
+        group.subgroups = sg;
       }
-      if (s.type) {
-        pieces.push(`${s.type}`);
-      }
-      if (s.body) {
-        pieces.push(`${s.body}`);
-      }
-      let className = `.${pieces.join('-')}`;
-      if (s.element) {
-        className += `--${s.element}`;
-      }
-      if (s.modifier) {
-        className +=`__${s.modifier}`;
-      }
-      sElement.textContent = className;
-      container.appendChild(sElement);
+
+      groups.push(group);
     }
+    return groups;
+  }
+
+  groupNames(selectors: BEMSelector[], namefn: (s: BEMSelector) => string): {name: string, count: number, selectors: BEMSelector[]}[] {
+    const groups: {name: string, count: number, selectors: BEMSelector[]}[] = [];
+    let currentGroup: {name: string, count: number, selectors: BEMSelector[]};
+    for (const s of selectors) {
+      const name = namefn(s);
+      if (!currentGroup || name != currentGroup.name) {
+        currentGroup = {
+          name: name,
+          count: 0,
+          selectors: [],
+        };
+        groups.push(currentGroup);
+      }
+      currentGroup.count++;
+      currentGroup.selectors.push(s);
+    }
+    return groups;
   }
 
   orderedBEMSelectors(reports: CSSStyleheetReport[]): BEMSelector[] {
@@ -198,353 +229,6 @@ class ClassName {
     return selectors
   }
 
-  convertToTableReport(reports: CSSStyleheetReport[]): UITableReport {
-    const namespacedSelectors = this.selectorsByNamespace(reports);
-    
-    const tableReport: UITableReport = {
-      Namespaces: [],
-    }
-
-    for (const n of Object.keys(namespacedSelectors)) {
-      const selectors = namespacedSelectors[n];
-      const namespaceReport: UINamespaceReport = {
-        Name: n,
-        Types: [],
-      };
-
-      const typedSelectors = this.selectorsByType(selectors);
-      for (const t of Object.keys(typedSelectors)) {
-        const typeReport: UITypeReport = {
-          Name: t,
-          Bodies: [],
-        }
-        
-        const bodySelectors = this.selectorsByBody(typedSelectors[t])
-        for (const b of Object.keys(bodySelectors)) {
-          const bodyReport: UIBodyReport = {
-            Name: b,
-            ElementModifiers: [],
-          }
-
-          const elementSelectors = this.selectorsByElements(bodySelectors[b]);
-          for (const e of Object.keys(elementSelectors)) {
-            const elementModifier: UIElementModifierReport = {
-              ElementName: e,
-              Modifiers: [],
-            };
-            const modifiers = this.selectorsByModifiers(elementSelectors[e]);
-            for (const m of Object.keys(modifiers)) {
-              elementModifier.Modifiers.push(m);
-            }
-            bodyReport.ElementModifiers.push(elementModifier);
-          }
-          typeReport.Bodies.push(bodyReport);
-        }
-
-        namespaceReport.Types.push(typeReport);
-      }
-
-      tableReport.Namespaces.push(namespaceReport)
-    }
-    
-    return tableReport
-  }
-
-  selectorsByElements(selectors: BEMSelector[]): {[key: string]: BEMSelector[]} {
-    const elements: {[key: string]: BEMSelector[]} = {};
-    for (const selector of selectors) {
-      let elementName = '';
-      if (selector.element) {
-        elementName = selector.element;
-      }
-
-      if (!elements[elementName]) {
-        elements[elementName] = [];
-      }
-      elements[elementName].push(selector);
-    }
-    return elements;
-  }
-
-  selectorsByModifiers(selectors: BEMSelector[]): {[key: string]: BEMSelector[]} {
-    const modifiers: {[key: string]: BEMSelector[]} = {};
-    for (const selector of selectors) {
-      let modifierName = '';
-      if (selector.modifier) {
-        modifierName = selector.modifier;
-      }
-
-      if (!modifiers[modifierName]) {
-        modifiers[modifierName] = [];
-      }
-
-      modifiers[modifierName].push(selector);
-    }
-    return modifiers;
-  }
-
-  selectorsByBody(selectors: BEMSelector[]): {[key: string]: BEMSelector[]} {
-    const bodies: {[key: string]: BEMSelector[]} = {};
-    for (const selector of selectors) {
-      const name = selector.body;
-      if (!bodies[name]) {
-        bodies[name] = [];
-      }
-
-      bodies[name].push(selector);
-    }
-    return bodies;
-  }
-
-  selectorsByNamespace(reports: CSSStyleheetReport[]): {[key: string]: BEMSelector[]} {
-    const bemSelectorsByNamespace: {[key: string]: BEMSelector[]} = {};
-    for (const report of reports) {
-      for (const bemSelector of report.BEMClassSelectors) {
-        let n = '';
-        if (bemSelector.namespace) {
-          n = bemSelector.namespace;
-        }
-        
-        if (!bemSelectorsByNamespace[n]) {
-          bemSelectorsByNamespace[n] = [];
-        }
-
-        bemSelectorsByNamespace[n].push(bemSelector);
-      }
-    }
-    return bemSelectorsByNamespace
-  }
-
-  selectorsByType(selectors: BEMSelector[]): {[key: string]: BEMSelector[]} {
-    const bemSelectorsByTypes: {[key: string]: BEMSelector[]} = {};
-    for (const selector of selectors) {
-      let t = '';
-      if (selector.type) {
-        t = selector.type;
-      }
-      
-      if (!bemSelectorsByTypes[t]) {
-        bemSelectorsByTypes[t] = [];
-      }
-
-      bemSelectorsByTypes[t].push(selector);
-    }
-    return bemSelectorsByTypes;
-  }
-
-  renderTable(report: UITableReport, containerElement: Element) {
-    for(const n of report.Namespaces) {
-      containerElement.appendChild(
-        this.renderNamespaces(n)
-      )
-    }
-  }
-
-  renderNamespaces(report: UINamespaceReport): Element {
-    const namespaceSection = document.createElement('div');
-    namespaceSection.appendChild(this.namespaceTitleElement(report));
-    namespaceSection.appendChild(this.renderTypes(report.Types));
-    return namespaceSection
-  }
-
-  namespaceTitleElement(report: UINamespaceReport): Element {
-    const titleEle = document.createElement('h2');
-    if (report.Name) {
-      titleEle.textContent = `${report.Name}`;
-    } else {
-      titleEle.textContent = 'No Namespace';
-    }
-    return titleEle;
-  }
-
-  renderTypes(reports: UITypeReport[]): Element {
-    const typesSection = document.createElement('div');
-    for (const report of reports) {
-      typesSection.appendChild(this.typeTitleElement(report));
-      typesSection.appendChild(this.typeTableElement(report));
-    }
-    return typesSection
-  }
-
-  typeTitleElement(report: UITypeReport): Element {
-    const titleEle = document.createElement('h3');
-    switch (report.Name) {
-      case 'c':
-        titleEle.textContent = `Components`;
-        break;
-      case 'l':
-        titleEle.textContent = `Layouts`;
-        break;
-      default:
-        titleEle.textContent = `Unknown Type ${report.Name}`;
-        break;
-    }
-    return titleEle;
-  }
-
-  typeTableElement(report: UITypeReport): Element {
-    const table = document.createElement('table');
-    table.appendChild(this.typeTableHeading());
-    table.appendChild(this.typeTableBody(report));
-    return table;
-  }
-
-  typeTableHeading(): Element {
-    const bodyTd = document.createElement('td');
-    bodyTd.textContent = 'Body';
-    const elementTd = document.createElement('td');
-    elementTd.textContent = 'Element';
-    const modifierTd = document.createElement('td');
-    modifierTd.textContent = 'Modifier';
-
-    const tr = document.createElement('tr');
-    tr.appendChild(bodyTd);
-    tr.appendChild(elementTd);
-    tr.appendChild(modifierTd);    
-
-    const header = document.createElement('thead');
-    header.appendChild(tr);
-    return header;
-  }
-
-  typeTableBody(report: UITypeReport): Element {
-    const body = document.createElement('tbody');
-
-    for (const bodyReport of report.Bodies) {
-      const elementTable = document.createElement('table');
-      const modifierTable = document.createElement('table');
-      for (const em of bodyReport.ElementModifiers) {
-        let addElementText = true;
-        for (const m of em.Modifiers) {
-          const elementCol = document.createElement('td');
-          elementCol.innerHTML = '&nbsp;';
-          if (addElementText) {
-            if (em.ElementName) {
-              elementCol.textContent = em.ElementName;
-            }
-            addElementText = false;
-          }
-
-          const elementRow = document.createElement('tr');
-          elementRow.appendChild(elementCol);
-          elementTable.appendChild(elementRow);
-
-          const modifierCol = document.createElement('td');
-          modifierCol.innerHTML = '&nbsp;';
-          if (m) {
-            modifierCol.textContent = m;
-          }
-
-          const modifierRow = document.createElement('tr');
-          modifierRow.appendChild(modifierCol);
-          modifierTable.appendChild(modifierRow);
-        }
-      }
-      
-      const bodyCol = document.createElement('td');
-      bodyCol.textContent = bodyReport.Name
-      const elementCol = document.createElement('td');
-      elementCol.appendChild(elementTable);
-      const modiferCol = document.createElement('td');
-      modiferCol.appendChild(modifierTable);
-
-      const tr = document.createElement('tr');
-      tr.append(bodyCol);
-      tr.appendChild(elementCol);
-      tr.appendChild(modiferCol);
-
-      body.appendChild(tr);
-    }
-
-    
-    return body;
-  }
-
-  /* renderNamespaces(report: ClassNameReport) {
-      
-
-      const namespaces = Object.keys(report.namespaces).sort();
-      for (const namespace of namespaces) {
-          const titleEle = document.createElement('h2');
-          if (namespace) {
-            titleEle.textContent = `Namespace: ${namespace}`;
-          } else {
-            titleEle.textContent = 'No Namespace';
-          }
-          
-          namespaceSection.appendChild(titleEle);
-
-          const types = Object.keys(report.namespaces[namespace].types).sort();
-          for (const type of types) {
-              let typeName = type;
-              switch (type) {
-                  case 'c':
-                      typeName = 'Components';
-                      break;
-                  case 'l':
-                      typeName = 'Layouts';
-                      break;
-                  case 'u':
-                      typeName = 'Utilities';
-                      break;
-              }
-              const typeTitle = document.createElement('h3');
-              typeTitle.textContent = typeName;
-              namespaceSection.appendChild(typeTitle);
-              namespaceSection.appendChild(this.renderBEMList(report.namespaces[namespace].types[type]));
-          }
-      }
-
-      return namespaceSection;
-  }*/
-
-  /* renderBEMList(bemElements: {[key: string]: BEMBody}): HTMLElement {
-      const bodyList = document.createElement('ul');
-      const bodies = Object.keys(bemElements).sort();
-      for (const body of bodies) {
-          const nameLi = document.createElement('li');
-          nameLi.textContent = body;
-          bodyList.appendChild(nameLi);
-
-          const elements = Object.keys(bemElements[body].elements);
-          if (elements.length > 0) {
-              bodyList.appendChild(this.renderElements(bemElements[body].elements));
-          }
-
-          const modifiers = bemElements[body].modifiers;
-          if (modifiers.length > 0) {
-              bodyList.appendChild(this.renderModifiers(modifiers));
-          }
-      }
-      return bodyList;
-  }
-
-  renderElements(elements: {[key: string]: BEMElement}): HTMLElement {
-      const elementList = document.createElement('ul');
-      const sortedElements = Object.keys(elements).sort();
-      for (const element of sortedElements) {
-          const nameLi = document.createElement('li');
-          nameLi.textContent = `&#8627; ${element}`;
-          elementList.appendChild(nameLi);
-
-          const modifiers = elements[element].modifiers;
-          if (modifiers.length > 0) {
-              elementList.appendChild(this.renderModifiers(modifiers));
-          }
-      }
-      return elementList
-  }
-
-  renderModifiers(modifiers: string[]): HTMLElement {
-      const modifierList = document.createElement('ul');
-      for (const modifier of modifiers.sort()) {
-          const nameLi = document.createElement('li');
-          nameLi.textContent = `↠ ${modifier}`;
-          modifierList.appendChild(nameLi);
-      }
-      return modifierList;
-  }*/
-
   splitSelectors(selector: string) {
       return selector.split(/(?:\s|,)+/);
   }
@@ -563,37 +247,16 @@ interface BEMSelector {
 }
 
 interface CSSStyleheetReport {
-  StylesheetHref: string,
+  StylesheetHref: string;
 
-  BEMClassSelectors: BEMSelector[],
-  NonBEMClassSelectors: string[],
-  IDSelectors: string[],
-  UnknownSelectors: string[],
+  BEMClassSelectors: BEMSelector[];
+  NonBEMClassSelectors: string[];
+  IDSelectors: string[];
+  UnknownSelectors: string[];
 }
 
-interface UITableReport {
-  Namespaces: UINamespaceReport[],
-}
-
-interface UINamespaceReport {
-  Name: string,
-
-  Types: UITypeReport[],
-}
-
-interface UITypeReport {
-  Name: string,
-
-  Bodies: UIBodyReport[],
-}
-
-interface UIBodyReport {
-  Name: string,
-
-  ElementModifiers: UIElementModifierReport[],
-}
-
-interface UIElementModifierReport {
-  ElementName: string,
-  Modifiers: string[],
+interface BEMGroup {
+  name: string;
+  count: number;
+  subgroups: BEMGroup[];
 }

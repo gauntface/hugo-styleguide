@@ -89,7 +89,7 @@ class ClassName {
       modifier: results[5],
     };
     if (results[1]) {
-      bem.namespace = results[1];
+      bem.namespace = `n-${results[1]}`;
     }
     return bem;
   }
@@ -116,6 +116,35 @@ class ClassName {
   renderBEMList(selectors: BEMSelector[], container: Element) {
     const grouped = this.groupSelectors(selectors);
     console.log(grouped);
+    
+    for (const g of grouped) {
+      container.appendChild(this.renderBEMGroup(g));
+    }
+  }
+
+  renderBEMGroup(group: BEMGroup): Element {
+    const nameColumn = document.createElement('div');
+    nameColumn.classList.add('n-hopin-styleguide-l-bemgroup--name');
+
+    for (let i = 0; i < group.count; i++) {
+      const item = document.createElement('div');
+      item.classList.add('n-hopin-styleguide-l-bemgroup--line-item');
+      item.textContent = group.name
+      nameColumn.appendChild(item);
+    }
+    
+    const subgroupContainer = document.createElement('div');
+    subgroupContainer.classList.add('n-hopin-styleguide-l-bemgroup--subgroup');
+
+    for (const sg of group.subgroups) {
+      subgroupContainer.appendChild(this.renderBEMGroup(sg));
+    }
+
+    const groupContainer = document.createElement('div');
+    groupContainer.classList.add('n-hopin-styleguide-l-bemgroup');
+    groupContainer.appendChild(nameColumn);
+    groupContainer.appendChild(subgroupContainer);
+    return groupContainer;
   }
 
   groupSelectors(selectors: BEMSelector[]): BEMGroup[] {
@@ -131,7 +160,7 @@ class ClassName {
   group(selectors: BEMSelector[], namefns: ((s:BEMSelector) => string)[]): BEMGroup[] {
     const groups: BEMGroup[] = [];
 
-    const currentNamefn = namefns.shift();
+    const currentNamefn = namefns[0];
     const groupedNamespaces = this.groupNames(selectors, currentNamefn);
     
     for (const groupedNamespace of groupedNamespaces) {
@@ -141,8 +170,9 @@ class ClassName {
         subgroups: [],
       };
 
-      if (namefns.length > 0) {
-        const sg = this.group(groupedNamespace.selectors, namefns)
+      if (namefns.length > 1) {
+        const fns = namefns.slice(1, namefns.length)
+        const sg = this.group(groupedNamespace.selectors, fns)
         group.subgroups = sg;
       }
 

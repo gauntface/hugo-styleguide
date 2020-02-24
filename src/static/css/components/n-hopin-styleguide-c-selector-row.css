@@ -1,0 +1,18 @@
+.n-hopin-styleguide-c-selector-row {
+  display: flex;
+  flex-direction: row;
+  margin: 24px;
+}
+
+.n-hopin-styleguide-c-selector-row__group {
+  display: inline-flex;
+  flex-direction: column;
+}
+
+.n-hopin-styleguide-c-selector-row span {
+  padding: 4px;
+}
+
+.n-hopin-styleguide-c-selector-row__group--namespace {
+  background-color: #1abc9c;
+}

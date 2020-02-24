@@ -12,8 +12,8 @@ The assumption is you are following the pattern of:
 ```
 .n-hopin-styleguide-c-my-component__sub-section--fancy
 |__________________|_|___________|____________|_______|
-    |               |      |           |         |
-Namespace           |      |           |         |
+        |           |      |           |         |
+    Namespace       |      |           |         |
                   Type     |           |         |
                           Body         |         |
                                     Element      |
@@ -33,6 +33,6 @@ The `type` of a selector should be one of the following:
 - `l` Layout
 - `u` Utility
 
-{{< load-static-css suffix=".css" >}}
+{{< load-static-css suffix="novars.css" >}}
 
 {{< load-partial "styleguide/components/styleguide-overview-classnames.html" >}}

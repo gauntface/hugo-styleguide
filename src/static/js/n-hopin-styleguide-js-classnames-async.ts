@@ -114,70 +114,67 @@ class ClassName {
   }
 
   renderBEMList(selectors: BEMSelector[], container: Element) {
-    const groups = this.groupNames(selectors, (s) => s.namespace)
+    const groups = this.groupNames(selectors, (s) => {
+      return {name: s.namespace, id: 'namespace'};
+    })
 
-    
+    console.log('GROUPS ', groups);
+
     for (const group of groups) {
       const groupRow = document.createElement('div');
       groupRow.classList.add('n-hopin-styleguide-c-selector-row');
 
       // First add dots for the class name
-      const dots = this.renderRowGroup(group.selectors, (s) => '.');
-      for (const e of dots) {
-        groupRow.appendChild(e);
-      }
+      groupRow.appendChild(this.renderRowGroup(group.selectors, (s) => {
+        return {name: '.', id: ''};
+      }));
 
       // Then add namespaces
       if (group.name) {
-        const namespaces = this.renderRowGroup(group.selectors, (s) => s.namespace);
-        for (const e of namespaces) {
-          groupRow.appendChild(e);
-        }
+        groupRow.appendChild(this.renderRowGroup(group.selectors, (s) => {
+          return {name: `n-${s.namespace}`, id: 'namespace'};
+        }));
 
-        const namespaceDash = this.renderRowGroup(group.selectors, (s) => '-');
-        for (const e of namespaceDash) {
-          groupRow.appendChild(e);
-        }
+        groupRow.appendChild(this.renderRowGroup(group.selectors, (s) => {
+          return {name: '-', id: ''};
+        }));
       }
 
       // Then we add types
-      const types = this.renderRowGroup(group.selectors, (s) => s.type);
-      for (const e of types) {
-        groupRow.appendChild(e);
-      }
+      groupRow.appendChild(this.renderRowGroup(group.selectors, (s) => {
+        return {name: s.type, id: 'type'};
+      }));
 
-      const typeDash = this.renderRowGroup(group.selectors, (s) => '-');
-      for (const e of typeDash) {
-        groupRow.appendChild(e);
-      }
+      groupRow.appendChild(this.renderRowGroup(group.selectors, (s) => {
+        return {name: '-', id: ''};
+      }));
 
       // Then we add bodies
-      const bodies = this.renderRowGroup(group.selectors, (s) => s.body);
-      for (const e of bodies) {
-        groupRow.appendChild(e);
-      }
+      groupRow.appendChild(this.renderRowGroup(group.selectors, (s) => {
+        return {name: s.body, id: 'body'};
+      }));
 
       // Then we add elements
-      const elements = this.renderRowGroup(group.selectors, (s) => {
-        if (!s.element) {
-          return
+      groupRow.appendChild(this.renderRowGroup(group.selectors, (s) => {
+        if (s.element) {
+          return {name: `__${s.element}`, id: 'element'};
         }
-        return `__${s.element}`;
-      });
-      for (const e of elements) {
-        groupRow.appendChild(e);
-      }
+        if (s.modifier) {
+          return {name: `--${s.modifier}`, id: 'modifier'};
+        }
+        return {name: '', id: ''};
+      }));
 
       // Then we add modifiers
-      const modifers = this.renderRowGroup(group.selectors, (s) => {
-        if (!s.modifier) {
-          return
+      groupRow.appendChild(this.renderRowGroup(group.selectors, (s) => {
+        if (!s.element) {
+          return {name: '', id: ''};
         }
-        return `--${s.modifier}`;
-      });
-      for (const e of modifers) {
-        groupRow.appendChild(e);
-      }
+        if (s.modifier) {
+          return {name: `--${s.modifier}`, id: 'modifier'};
+        }
+        return {name: '', id: ''};
+      }));
 
       container.appendChild(groupRow);
     }
@@ -189,26 +186,30 @@ class ClassName {
     }*/
   }
 
-  renderRowGroup(selectors: BEMSelector[], namfn: (s: BEMSelector) => string): Element[] {
-    const elements: Element[] = [];
-    const grouped = this.groupNames(selectors, namfn);
+  renderRowGroup(selectors: BEMSelector[], namefn: (s: BEMSelector) => {name: string, id: string}): Element {
+    const groupContainer = document.createElement('div');
+    groupContainer.classList.add('n-hopin-styleguide-c-selector-row__container');
+
+    const grouped = this.groupNames(selectors, namefn);
     for (const group of grouped) {
       const namespaceGroup = document.createElement('div');
       namespaceGroup.classList.add('n-hopin-styleguide-c-selector-row__group');
       for (let i = 0; i < group.count; i++) {
         const item = document.createElement('span');
         if (group.name) {
-          item.classList.add('n-hopin-styleguide-c-selector-row__group--type');
+          if (group.id) {
+            item.classList.add(`n-hopin-styleguide-c-selector-row__group--${group.id}`);
+          }
           item.textContent = group.name;
         } else {
-          item.textContent = ' ';
+          item.innerHTML = '&nbsp;';
         }
         namespaceGroup.appendChild(item);
       }
 
-      elements.push(namespaceGroup);
+      groupContainer.appendChild(namespaceGroup);
     }
-    return elements;
+    return groupContainer;
   }
 
   renderBEMGroup(group: BEMGroup): Element {
@@ -275,14 +276,15 @@ class ClassName {
     return groups;
   }*/
 
-  groupNames(selectors: BEMSelector[], namefn: (s: BEMSelector) => string): {name: string, count: number, selectors: BEMSelector[]}[] {
-    const groups: {name: string, count: number, selectors: BEMSelector[]}[] = [];
-    let currentGroup: {name: string, count: number, selectors: BEMSelector[]};
+  groupNames(selectors: BEMSelector[], namefn: (s: BEMSelector) => {name: string, id: string}): {name: string, id: string, count: number, selectors: BEMSelector[]}[] {
+    const groups: {name: string, id: string, count: number, selectors: BEMSelector[]}[] = [];
+    let currentGroup: {name: string, id: string, count: number, selectors: BEMSelector[]};
     for (const s of selectors) {
-      const name = namefn(s);
+      const {name, id} = namefn(s);
       if (!currentGroup || name != currentGroup.name) {
         currentGroup = {
           name: name,
+          id: id,
           count: 0,
           selectors: [],
         };

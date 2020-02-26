@@ -1,4 +1,4 @@
-{{- define "components-file" -}}
+{{- define "styleguide-components-file" -}}
   {{- $path := path.Dir $.filePath -}}
   {{- $fileExt := path.Ext $.filePath -}}
   {{- $fileName :=  strings.TrimSuffix $fileExt (path.Base $.filePath) -}}
@@ -24,15 +24,15 @@
   {{- end -}}
 {{- end -}}
 
-{{- define "components-dir" -}}
+{{- define "styleguide-components-dir" -}}
   {{- range (readDir $.dir) -}}
     {{- $path := printf "%v/%v" $.dir .Name -}}
     {{- if .IsDir -}}
       {{- if not (eq $path "/themes/hopin-styleguide-build") -}}
-        {{- template "components-dir" (dict "dir" $path "ctx" $.ctx) -}}
+        {{- template "styleguide-components-dir" (dict "dir" $path "ctx" $.ctx) -}}
       {{- end -}}
     {{- else -}}
-      {{- template "components-file" (dict "filePath" $path "ctx" $.ctx) -}}
+      {{- template "styleguide-components-file" (dict "filePath" $path "ctx" $.ctx) -}}
     {{- end -}}
   {{- end -}}
 {{- end -}}
@@ -40,5 +40,5 @@
 {{- $ctx := .}}
 
 {{- range (slice "/themes") -}}
-    {{- template "components-dir" (dict "dir" . "ctx" $ctx) -}}
+    {{- template "styleguide-components-dir" (dict "dir" . "ctx" $ctx) -}}
 {{- end -}}

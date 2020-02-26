@@ -12,6 +12,6 @@ type: "styleguide"
 
 The fonts list is derived from CSS variables defined in CSS files ending in `fonts.css`.
 
-{{< load-static-css suffix="fonts.css" >}}
+{{< styleguide-load-static-css suffix="fonts.css" >}}
 
-{{< load-partial "styleguide/components/styleguide-fonts-grid" >}}
+<div class="n-hopin-styleguide-c-dimensions-grid n-hopin-styleguide-js-fonts-grid"></div>

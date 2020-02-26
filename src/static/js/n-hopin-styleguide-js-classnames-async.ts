@@ -103,32 +103,24 @@ class ClassName {
       if (bemContainer) {
         const orderedBEM = this.orderedBEMSelectors(reports);
         this.renderBEMList(orderedBEM, bemContainer);
-      } else {
-        console.warn(`Unable to find the BEM classnames container with class ${BEM_CLASSNAMES_CONTAINER_SELECTOR}`)
       }
       
       const invalidClassesContainer = document.querySelector(INVALID_CLASSNAMES_CONTAINER_SELECTOR);
       if (invalidClassesContainer) {
         const orderedInvalids = this.orderedItems(reports, (r: CSSStyleheetReport) => r.NonBEMClassSelectors);
         this.renderList(orderedInvalids, invalidClassesContainer);
-      } else {
-        console.warn(`Unable to find the invalid classnames container with class ${INVALID_CLASSNAMES_CONTAINER_SELECTOR}`)
       }
 
       const idsContainer = document.querySelector(IDS_CONTAINER_SELECTOR);
       if (idsContainer) {
         const orderedIDs = this.orderedItems(reports, (r: CSSStyleheetReport) => r.IDSelectors);
         this.renderList(orderedIDs, idsContainer);
-      } else {
-        console.warn(`Unable to find the IDs container with class ${IDS_CONTAINER_SELECTOR}`)
       }
 
       const elementsContainer = document.querySelector(ELEMENTS_CONTAINER_SELECTOR);
       if (elementsContainer) {
         const orderedElements = this.orderedItems(reports, (r: CSSStyleheetReport) => r.UnknownSelectors);
         this.renderList(orderedElements, elementsContainer);
-      } else {
-        console.warn(`Unable to find the elements container with class ${ELEMENTS_CONTAINER_SELECTOR}`)
       }
   }
 

@@ -1,4 +1,7 @@
-const CLASSNAMES_CONTAINER_SELECTOR = '.n-hopin-styleguide-js-classnames';
+const BEM_CLASSNAMES_CONTAINER_SELECTOR = '.n-hopin-styleguide-js-bem-classnames';
+const INVALID_CLASSNAMES_CONTAINER_SELECTOR = '.n-hopin-styleguide-js-invalid-classnames';
+const IDS_CONTAINER_SELECTOR = '.n-hopin-styleguide-js-ids';
+const ELEMENTS_CONTAINER_SELECTOR = '.n-hopin-styleguide-js-elements';
 
 class ClassName {
   getCSSReports(): CSSStyleheetReport[] {
@@ -76,7 +79,7 @@ class ClassName {
   parseBEMSelector(selector: string): (null|BEMSelector) {
     // ((?:[a-z0-9]|-(?=[a-z0-9]))+) uses look ahead.
     // Match a-z0-9 OR a - followed by a-z0-9
-    const regex = /^\.(?:n-([a-z0-9-]*)-)?([cul])-((?:[a-z0-9]|-(?=[a-z0-9]))+)(?:__((?:[a-z0-9]|-(?=[a-z0-9]))+))?(?:--((?:[a-z0-9]|-(?=[a-z0-9]))+))?(?::(?:hover|active|focus|visited))*?$/;
+    const regex = /^\.(?:n-([a-z0-9-]*)-)?([cul])-((?:[a-z0-9]|-(?=[a-z0-9]))+)(?:__((?:[a-z0-9]|-(?=[a-z0-9]))+))?(?:--((?:[a-z0-9]|-(?=[a-z0-9]))+))?(?::(?:.*))*?$/;
     const results = regex.exec(selector);
     if (!results) {
       return null;
@@ -95,30 +98,54 @@ class ClassName {
   }
 
   render() {
-      const containerElement = document.querySelector(CLASSNAMES_CONTAINER_SELECTOR);
-      if (!containerElement) {
-          console.warn(`Unable to find container with class ${CLASSNAMES_CONTAINER_SELECTOR}`)
-          return;
+      const reports = this.getCSSReports();
+      const bemContainer = document.querySelector(BEM_CLASSNAMES_CONTAINER_SELECTOR);
+      if (bemContainer) {
+        const orderedBEM = this.orderedBEMSelectors(reports);
+        this.renderBEMList(orderedBEM, bemContainer);
+      } else {
+        console.warn(`Unable to find the BEM classnames container with class ${BEM_CLASSNAMES_CONTAINER_SELECTOR}`)
+      }
+      
+      const invalidClassesContainer = document.querySelector(INVALID_CLASSNAMES_CONTAINER_SELECTOR);
+      if (invalidClassesContainer) {
+        const orderedInvalids = this.orderedItems(reports, (r: CSSStyleheetReport) => r.NonBEMClassSelectors);
+        this.renderList(orderedInvalids, invalidClassesContainer);
+      } else {
+        console.warn(`Unable to find the invalid classnames container with class ${INVALID_CLASSNAMES_CONTAINER_SELECTOR}`)
       }
 
-      const reports = this.getCSSReports();
-      
-      const orderedBEM = this.orderedBEMSelectors(reports);
+      const idsContainer = document.querySelector(IDS_CONTAINER_SELECTOR);
+      if (idsContainer) {
+        const orderedIDs = this.orderedItems(reports, (r: CSSStyleheetReport) => r.IDSelectors);
+        this.renderList(orderedIDs, idsContainer);
+      } else {
+        console.warn(`Unable to find the IDs container with class ${IDS_CONTAINER_SELECTOR}`)
+      }
 
-      this.renderBEMList(orderedBEM, containerElement);
+      const elementsContainer = document.querySelector(ELEMENTS_CONTAINER_SELECTOR);
+      if (elementsContainer) {
+        const orderedElements = this.orderedItems(reports, (r: CSSStyleheetReport) => r.UnknownSelectors);
+        this.renderList(orderedElements, elementsContainer);
+      } else {
+        console.warn(`Unable to find the elements container with class ${ELEMENTS_CONTAINER_SELECTOR}`)
+      }
+  }
 
-      /* const tableReport = this.convertToTableReport(reports);
-      console.log(`Got table report: `, tableReport);
-
-      this.renderTable(tableReport, containerElement);*/
+  renderList(classes: string[], container: Element) {
+    const ol = document.createElement('ol');
+    for (const c of classes) {
+      const li = document.createElement('li');
+      li.textContent = c
+      ol.appendChild(li);
+    }
+    container.appendChild(ol);
   }
 
   renderBEMList(selectors: BEMSelector[], container: Element) {
     const groups = this.groupNames(selectors, (s) => {
       return {name: s.namespace, id: 'namespace'};
     })
-
-    console.log('GROUPS ', groups);
 
     for (const group of groups) {
       const groupRow = document.createElement('div');
@@ -178,12 +205,6 @@ class ClassName {
 
       container.appendChild(groupRow);
     }
-    /* const grouped = this.groupSelectors(selectors);
-    console.log(grouped);
-    
-    for (const g of grouped) {
-      container.appendChild(this.renderBEMGroup(g));
-    }*/
   }
 
   renderRowGroup(selectors: BEMSelector[], namefn: (s: BEMSelector) => {name: string, id: string}): Element {
@@ -196,9 +217,11 @@ class ClassName {
       namespaceGroup.classList.add('n-hopin-styleguide-c-selector-row__group');
       for (let i = 0; i < group.count; i++) {
         const item = document.createElement('span');
+        item.classList.add('n-hopin-styleguide-c-selector-row__item');
         if (group.name) {
           if (group.id) {
-            item.classList.add(`n-hopin-styleguide-c-selector-row__group--${group.id}`);
+            item.classList.add(`n-hopin-styleguide-c-selector-row__item--${group.id}`);
+            item.classList.add('n-hopin-styleguide-c-selector-row__item--highlight');
           }
           item.textContent = group.name;
         } else {
@@ -237,45 +260,6 @@ class ClassName {
     return groupContainer;
   }
 
-  /* groupSelectors(selectors: BEMSelector[]): BEMGroup[] {
-    return this.group(selectors, [
-      (s) => {
-        if (!s.namespace){
-          return
-        }
-        return `n-${s.namespace}`
-      },
-      (s) => `${s.type}`,
-      (s) => s.body,
-      (s) => `__${s.element}`,
-      (s) => `--${s.modifier}`,
-    ]);
-  }
-
-  group(selectors: BEMSelector[], namefns: ((s:BEMSelector) => string)[]): BEMGroup[] {
-    const groups: BEMGroup[] = [];
-
-    const currentNamefn = namefns[0];
-    const groupedNamespaces = this.groupNames(selectors, currentNamefn);
-    
-    for (const groupedNamespace of groupedNamespaces) {
-      const group: BEMGroup = {
-        name: groupedNamespace.name,
-        count: groupedNamespace.count,
-        subgroups: [],
-      };
-
-      if (namefns.length > 1) {
-        const fns = namefns.slice(1, namefns.length)
-        const sg = this.group(groupedNamespace.selectors, fns)
-        group.subgroups = sg;
-      }
-
-      groups.push(group);
-    }
-    return groups;
-  }*/
-
   groupNames(selectors: BEMSelector[], namefn: (s: BEMSelector) => {name: string, id: string}): {name: string, id: string, count: number, selectors: BEMSelector[]}[] {
     const groups: {name: string, id: string, count: number, selectors: BEMSelector[]}[] = [];
     let currentGroup: {name: string, id: string, count: number, selectors: BEMSelector[]};
@@ -294,6 +278,20 @@ class ClassName {
       currentGroup.selectors.push(s);
     }
     return groups;
+  }
+
+  orderedItems(reports: CSSStyleheetReport[], fn: (r: CSSStyleheetReport) => string[]): string[] {
+    const allItems: string[] = [];
+    for (const report of reports) {
+      const items = fn(report);
+      for (const i of items) {
+        if (allItems.indexOf(i) == -1) {
+          allItems.push(i);
+        }
+      }
+    }
+
+    return allItems.sort();
   }
 
   orderedBEMSelectors(reports: CSSStyleheetReport[]): BEMSelector[] {

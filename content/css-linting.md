@@ -1,13 +1,17 @@
 ---
-title: "Theme Overview"
+title: "CSS Linting"
 menu: "styleguide"
 weight: 6
 type: "styleguide"
 ---
 
+# CSS Linting
+
 This page will include information on the CSS selectors used in your stylesheets.
 
-The assumption is you are following the pattern of:
+## Classnames
+
+This script assumes you are following the pattern of:
 
 ```
 .n-hopin-styleguide-c-my-component__sub-section--fancy
@@ -17,7 +21,7 @@ The assumption is you are following the pattern of:
                   Type     |           |         |
                           Body         |         |
                                     Element      |
-                                             Modifier
+                                              Modifier
 ```
 
 The namespace, element and modifier are optional, so you can
@@ -35,4 +39,23 @@ The `type` of a selector should be one of the following:
 
 {{< load-static-css suffix="novars.css" >}}
 
-{{< load-partial "styleguide/components/styleguide-overview-classnames.html" >}}
+<div class='n-hopin-styleguide-js-bem-classnames'></div>
+
+### Invalid Classnames
+
+Below is a list of classnames that don't follow the BEM
+format described above:
+
+<div class='n-hopin-styleguide-js-invalid-classnames'></div>
+
+## IDs
+
+Below is a list of IDs defined in the stylesheets:
+
+<div class='n-hopin-styleguide-js-ids'></div>
+
+## Elements
+
+Below is a list of elements defined in the stylesheets:
+
+<div class='n-hopin-styleguide-js-elements'></div>

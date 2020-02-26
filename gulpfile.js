@@ -62,8 +62,10 @@ gulp.task('copy-styleguide', async () => {
   await hopinstyleguide.copyContent(contentDir);
 })
 
+let serverInstance;
+
 function startServer() {
-  const serverInstance = spawn('hugo', ['server', '-D', '--ignoreCache'], {
+  serverInstance = spawn('hugo', ['server', '-D', '--ignoreCache'], {
     stdio: 'inherit',
     cwd: path.join(__dirname, 'example'),
   });
@@ -72,7 +74,7 @@ function startServer() {
   });
   serverInstance.addListener('exit', (code) => {
     console.error('Hugo server has exited: ', code);
-    setTimeout(startServer, 5000);
+    setTimeout(startServer, 500);
   });
 }
 
@@ -80,14 +82,22 @@ gulp.task('hugo-server',
   gulp.series(startServer)
 );
 
+gulp.task('restart-server', async () => {
+  if (!serverInstance) {
+    return;
+  }
+
+  serverInstance.kill();
+});
+
 gulp.task('watch-theme', () => {
   const opts = {};
-  return gulp.watch([path.join(themeSrc, '**', '*')], opts, gulp.series('build', 'copy-styleguide'));
+  return gulp.watch([path.join(themeSrc, '**', '*')], opts, gulp.series('build', 'copy-styleguide', 'restart-server'));
 });
 
 gulp.task('watch-content', () => {
   const opts = {};
-  return gulp.watch([path.join(__dirname, 'content', '**', '*')], opts, gulp.series('copy-styleguide'));
+  return gulp.watch([path.join(__dirname, 'content', '**', '*')], opts, gulp.series('copy-styleguide', 'restart-server'));
 });
 
 gulp.task('watch',

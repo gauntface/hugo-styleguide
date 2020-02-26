@@ -12,6 +12,6 @@ type: "styleguide"
 
 The dimension list is derived from CSS variables defined in CSS files ending in `dimensions.css`.
 
-{{< load-static-css suffix="dimensions.css" >}}
+{{< styleguide-load-static-css suffix="dimensions.css" >}}
 
-{{< load-partial "styleguide/components/styleguide-dimensions-grid" >}}
+<div class="n-hopin-styleguide-c-dimensions-grid n-hopin-styleguide-js-dimensions-grid"></div>

@@ -12,6 +12,6 @@ type: "styleguide"
 
 The color palette is derived from CSS variables defined in CSS files ending in `colors.css`.
 
-{{< load-static-css suffix="colors.css" >}}
+{{< styleguide-load-static-css suffix="colors.css" >}}
 
-{{< load-partial "styleguide/components/styleguide-color-grid" >}}
+<div class="n-hopin-styleguide-c-color-grid n-hopin-styleguide-js-colors-grid"></div>

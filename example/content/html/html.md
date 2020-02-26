@@ -108,15 +108,15 @@ This is an example of a gif.
 
 This is an example of a broken image.
 
-{{< raw-html >}}
+{{< styleguide-raw-html >}}
 <img src="/gauntface-theme/invalid-image-url" alt="Invalid sized image" width="300" height="300" />
-{{< / raw-html >}}
+{{< / styleguide-raw-html >}}
 
 This is an example of a broken image without a width or height attribute.
 
-{{< raw-html >}}
+{{< styleguide-raw-html >}}
 <img src="/gauntface-theme/invalid-image-url" alt="Invalid image" />
-{{< / raw-html >}}
+{{< / styleguide-raw-html >}}
 
 This is a picture element.
 
@@ -126,39 +126,39 @@ This is a picture element.
 
 Below is a YouTube iframe with a width and height attribute.
 
-{{< raw-html >}}
+{{< styleguide-raw-html >}}
 <!-- Autoplay and width + height should be removed by hopin-static-site-gen -->
 <iframe width="560" height="315" src="https://www.youtube.com/embed/x2o-oy0o5Mo?autoplay=1"></iframe>
-{{< / raw-html >}}
+{{< / styleguide-raw-html >}}
 
 Below is a YouTube iframe without a width and height attribute.
 
-{{< raw-html >}}
+{{< styleguide-raw-html >}}
 <iframe src="https://www.youtube.com/embed/x2o-oy0o5Mo?autoplay=1"></iframe>
-{{< / raw-html >}}
+{{< / styleguide-raw-html >}}
 
 Below is a slideshare iframe without a width and height attribute.
 
-{{< raw-html >}}
+{{< styleguide-raw-html >}}
 <iframe src="//www.slideshare.net/slideshow/embed_code/key/tOZhdgk62sVxU" width="595" height="485" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe>
-{{< / raw-html >}}
+{{< / styleguide-raw-html >}}
 
 ### Videos
 
 A video with width and height set.
 
-{{< raw-html >}}
+{{< styleguide-raw-html >}}
 <video width="480" height="480" autoplay muted loop playsinline>
   <source src="https://i.giphy.com/media/687qS11pXwjCM/giphy.mp4" type="video/mp4" />
   Your browser does not support the video tag.
 </video>
-{{< / raw-html >}}
+{{< / styleguide-raw-html >}}
 
 A video without any attributes.
 
-{{< raw-html >}}
+{{< styleguide-raw-html >}}
 <video>
   <source src="https://i.giphy.com/media/687qS11pXwjCM/giphy.mp4" type="video/mp4" />
   Your browser does not support the video tag.
 </video>
-{{< / raw-html >}}
+{{< / styleguide-raw-html >}}

@@ -1,4 +1,4 @@
-{{- define "layouts-file" -}}
+{{- define "styleguide-layouts-file" -}}
   {{- $path := path.Dir $.filePath -}}
   {{- $fileExt := path.Ext $.filePath -}}
   {{- $fileName :=  strings.TrimSuffix $fileExt (path.Base $.filePath) -}}
@@ -29,15 +29,15 @@
   {{- end -}}
 {{- end -}}
 
-{{- define "layouts-dir" -}}
+{{- define "styleguide-layouts-dir" -}}
   {{- range (readDir $.dir) -}}
     {{- $path := printf "%v/%v" $.dir .Name -}}
     {{- if .IsDir -}}
       {{- if not (eq $path "/themes/hopin-styleguide-build") -}}
-        {{- template "layouts-dir" (dict "dir" $path "ctx" $.ctx) -}}
+        {{- template "styleguide-layouts-dir" (dict "dir" $path "ctx" $.ctx) -}}
       {{- end -}}
     {{- else -}}
-      {{- template "layouts-file" (dict "filePath" $path "ctx" $.ctx) -}}
+      {{- template "styleguide-layouts-file" (dict "filePath" $path "ctx" $.ctx) -}}
     {{- end -}}
   {{- end -}}
 {{- end -}}
@@ -45,5 +45,5 @@
 {{- $ctx := .}}
 
 {{- range (slice "/themes") -}}
-    {{- template "layouts-dir" (dict "dir" . "ctx" $ctx) -}}
+    {{- template "styleguide-layouts-dir" (dict "dir" . "ctx" $ctx) -}}
 {{- end -}}

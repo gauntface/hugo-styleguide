@@ -17,4 +17,4 @@ For example, if `partials/componetns/project-card.html` needs some text, you can
 the `project-card` partial
 (i.e. `{{ partial "styleguide/components/project-card.html" (dict "Title" "Example") }}`).
 
-{{< load-components >}}
+{{< styleguide-load-components >}}

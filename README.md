@@ -1,5 +1,7 @@
 # Hopin Styleguide Hugo Theme
 
+![Build and Publish](https://github.com/gauntface/hopin-hugo-styleguide/workflows/Build%20and%20Publish/badge.svg)
+
 This repo contains a theme to use with hopin-styleguide-content..
 
 ## Installing

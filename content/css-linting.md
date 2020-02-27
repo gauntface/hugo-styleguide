@@ -39,23 +39,31 @@ The `type` of a selector should be one of the following:
 
 {{< styleguide-load-static-css suffix="novars.css" >}}
 
+{{< styleguide-raw-html >}}
 <div class='n-hopin-styleguide-js-bem-classnames'></div>
+{{< / styleguide-raw-html >}}
 
 ### Invalid Classnames
 
 Below is a list of classnames that don't follow the BEM
 format described above:
 
+{{< styleguide-raw-html >}}
 <div class='n-hopin-styleguide-js-invalid-classnames'></div>
+{{< / styleguide-raw-html >}}
 
 ## IDs
 
 Below is a list of IDs defined in the stylesheets:
 
+{{< styleguide-raw-html >}}
 <div class='n-hopin-styleguide-js-ids'></div>
+{{< / styleguide-raw-html >}}
 
 ## Elements
 
 Below is a list of elements defined in the stylesheets:
 
+{{< styleguide-raw-html >}}
 <div class='n-hopin-styleguide-js-elements'></div>
+{{< / styleguide-raw-html >}}

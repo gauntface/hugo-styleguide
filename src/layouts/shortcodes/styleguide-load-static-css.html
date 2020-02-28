@@ -18,5 +18,7 @@
 {{- end -}}
 
 {{- range (slice "/themes" "/static") -}}
-    {{- template "styleguide-load-static-css" (dict "suffix" $.Params.suffix "dir" .) -}}
+  {{- if (fileExists .) -}}
+  {{- template "styleguide-load-static-css" (dict "suffix" $.Params.suffix "dir" .) -}}
+  {{- end -}}
 {{- end -}}

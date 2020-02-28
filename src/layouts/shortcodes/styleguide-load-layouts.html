@@ -45,5 +45,7 @@
 {{- $ctx := .}}
 
 {{- range (slice "/themes") -}}
-    {{- template "styleguide-layouts-dir" (dict "dir" . "ctx" $ctx) -}}
+  {{- if (fileExists .) -}}
+  {{- template "styleguide-layouts-dir" (dict "dir" . "ctx" $ctx) -}}
+  {{- end -}}
 {{- end -}}

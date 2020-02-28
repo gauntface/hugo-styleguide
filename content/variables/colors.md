@@ -10,9 +10,9 @@ type: "styleguide"
 
 # Colors
 
-The color palette is derived from CSS variables defined in CSS files ending in `colors.css`.
+The color palette is derived from CSS variables defined in CSS files ending in `colors.dev.css`.
 
-{{< styleguide-load-static-css suffix="colors.css" >}}
+{{< styleguide-load-static-css suffix="colors.dev.css" >}}
 
 {{< styleguide-raw-html >}}
 <div class="n-hopin-styleguide-c-color-grid n-hopin-styleguide-js-colors-grid"></div>

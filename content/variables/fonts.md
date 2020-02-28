@@ -10,9 +10,9 @@ type: "styleguide"
 
 # Fonts
 
-The fonts list is derived from CSS variables defined in CSS files ending in `fonts.css`.
+The fonts list is derived from CSS variables defined in CSS files ending in `fonts.dev.css`.
 
-{{< styleguide-load-static-css suffix="fonts.css" >}}
+{{< styleguide-load-static-css suffix="fonts.dev.css" >}}
 
 {{< styleguide-raw-html >}}
 <div class="n-hopin-styleguide-c-dimensions-grid n-hopin-styleguide-js-fonts-grid"></div>

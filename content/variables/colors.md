@@ -14,4 +14,6 @@ The color palette is derived from CSS variables defined in CSS files ending in `
 
 {{< styleguide-load-static-css suffix="colors.css" >}}
 
+{{< styleguide-raw-html >}}
 <div class="n-hopin-styleguide-c-color-grid n-hopin-styleguide-js-colors-grid"></div>
+{{</ styleguide-raw-html >}}

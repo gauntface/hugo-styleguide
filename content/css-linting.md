@@ -13,16 +13,19 @@ This page will include information on the CSS selectors used in your stylesheets
 
 This script assumes you are following the pattern of:
 
-```
-.n-hopin-styleguide-c-my-component__sub-section--fancy
+{{< styleguide-raw-html >}}
+<pre class="n-hopin-styleguide-c-selector-demo">
+<code>.n-hopin-styleguide-c-my-component__sub-section--fancy
 |__________________|_|___________|____________|_______|
-        |           |      |           |         |
-    Namespace       |      |           |         |
-                  Type     |           |         |
-                          Body         |         |
-                                    Element      |
-                                              Modifier
-```
+        |           |      |           |          |
+    <span class="n-hopin-styleguide-c-selector-demo__item n-hopin-styleguide-c-selector-demo__item--namespace">Namespace</span>      |      |           |          |
+                  <span class="n-hopin-styleguide-c-selector-demo__item n-hopin-styleguide-c-selector-demo__item--type">Type</span>    |           |          |
+                         <span class="n-hopin-styleguide-c-selector-demo__item n-hopin-styleguide-c-selector-demo__item--body">Body</span>         |          |
+                                    <span class="n-hopin-styleguide-c-selector-demo__item n-hopin-styleguide-c-selector-demo__item--element">Element</span>      |
+                                              <span class="n-hopin-styleguide-c-selector-demo__item n-hopin-styleguide-c-selector-demo__item--modifier">Modifier</span>
+</code>
+</pre>
+{{</ styleguide-raw-html >}}
 
 The namespace, element and modifier are optional, so you can
 have names such as:

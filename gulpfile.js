@@ -119,7 +119,7 @@ gulp.task('hugo-build', () => {
       cwd: path.join(__dirname, 'example'),
     });
     serverInstance.on('error', (err) => {
-      reject(new Error(`Failed to run hugo builde: ${err}`));
+      reject(new Error(`Failed to run hugo build: ${err}`));
     });
     serverInstance.addListener('exit', (code) => {
       if (code != 0) {

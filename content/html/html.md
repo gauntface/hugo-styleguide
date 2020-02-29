@@ -96,15 +96,15 @@ The following elements are unlikely to fit on the vetical grid.
 
 This is an example of a small image that is also local.
 
-![This is an example Image](/images/small-img.jpg)
+![This is an example Image](/styleguide/images/small-img.jpg)
 
 This is an example of a large image that is remote.
 
-![This is a huge example Image](https://images.unsplash.com/photo-1510843572979-e4b9e790fdd7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1093&q=80)
+![This is a huge example Image](/styleguide/images/large-img.jpg)
 
 This is an example of a gif.
 
-![This is an example gif](/images/ttt.gif)
+![This is an example gif](/styleguide/images/ttt.gif)
 
 This is an example of a broken image.
 
@@ -120,7 +120,7 @@ This is an example of a broken image without a width or height attribute.
 
 This is a picture element.
 
-![Example picture element](/images/raspberry-pi-snes.jpg)
+![Example picture element](/styleguide/images/raspberry-pi-snes.jpg)
 
 ### Iframes
 

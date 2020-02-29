@@ -6,12 +6,12 @@
     {{- $path := index $sections 1 -}}
 
     <!-- Add all the css files. -->
-    {{- if and (strings.HasSuffix $path ".css") (not (strings.HasSuffix $path ".min.css")) -}}
+    {{- if (strings.HasSuffix $path ".css") -}}
       <link rel="stylesheet" href="{{- $path -}}">
     {{ end -}}
 
     <!-- Add all the JS files. -->
-    {{- if and (strings.HasSuffix $path "js") (not (strings.HasSuffix $path ".min.js")) -}}
+    {{- if (strings.HasSuffix $path ".js") -}}
       <script type="text/javascript" src="{{- $path -}}"></script>
     {{ end -}}
   {{- end -}}
@@ -28,8 +28,10 @@
   {{- end -}}
 {{- end -}}
 
-{{- if $.Site.IsServer -}}
+{{- if (not (eq hugo.Environment "production")) -}}
 {{- range (slice "/themes" "/static") }}
+  {{- if (fileExists .) -}}
   {{ template "styleguide-load-dev-assets-dir" (dict "dir" .) }}
+  {{- end -}}
 {{ end -}}
 {{- end -}}

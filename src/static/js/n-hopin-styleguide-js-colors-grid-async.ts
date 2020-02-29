@@ -1,7 +1,7 @@
 import {VariableGroup, Variable} from './_variable-group';
 import {copyToClipboard} from './_clipboard';
 
-const COLORS_SUFFIX = 'colors.css';
+const COLORS_SUFFIX = 'colors.dev.css';
 const namespace = 'n-hopin-styleguide-';
 const COLORS_CONTAINER_SELECTOR = `.${namespace}js-colors-grid`;
 

@@ -5,3 +5,4 @@ node_modules/
 build/
 example/themes/hopin-styleguide/
 example/content/
+example/public/

@@ -111,3 +111,28 @@ gulp.task('watch',
     ),
   )
 );
+
+gulp.task('hugo-build', () => {
+  return new Promise((resolve, reject) => {
+    serverInstance = spawn('hugo', [`--environment=test`], {
+      stdio: 'inherit',
+      cwd: path.join(__dirname, 'example'),
+    });
+    serverInstance.on('error', (err) => {
+      reject(new Error(`Failed to run hugo builde: ${err}`));
+    });
+    serverInstance.addListener('exit', (code) => {
+      if (code != 0) {
+        reject(new Error(`None 0 response: ${code}`));
+        return
+      }
+      resolve();
+    });
+  })
+})
+
+gulp.task('build-example', gulp.series(
+  'build',
+  'copy-styleguide',
+  'hugo-build',
+))

@@ -37,7 +37,7 @@ export class VariableGroup {
                                 group.variables.push({
                                     prettyName: friendlyName(name),
                                     variableName: name,
-                                    value: unparsedValue.toString(),
+                                    value: unparsedValue.toString().trim(),
                                 });
                             }
                         }

@@ -10,9 +10,9 @@ type: "styleguide"
 
 # Dimensions
 
-The dimension list is derived from CSS variables defined in CSS files ending in `dimensions.dev.css`.
+The dimension list is derived from CSS variables defined in CSS files ending in `dimensions.css`.
 
-{{< styleguide-load-static-css suffix="dimensions.dev.css" >}}
+{{< styleguide-load-static-css suffix="dimensions.css" >}}
 
 {{< styleguide-raw-html >}}
 <div class="n-hopin-styleguide-c-dimensions-grid n-hopin-styleguide-js-dimensions-grid"></div>

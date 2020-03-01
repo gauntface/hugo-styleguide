@@ -11,8 +11,8 @@ export function friendlyName(varName: string): string {
   return words.join(' ');
 }
 
-export function friendlyNameFromURL(urlString: string, fileSuffix: string): string {
+export function friendlyNameFromURL(urlString: string): string {
   const filenameWithExt = urlString.substring(urlString.lastIndexOf('/')+1);
-  const filename = filenameWithExt.substring(0, filenameWithExt.lastIndexOf(fileSuffix));
+  const filename = filenameWithExt.substring(0, filenameWithExt.lastIndexOf('.'));
   return friendlyName(filename);
 }

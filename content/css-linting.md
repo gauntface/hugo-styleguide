@@ -40,7 +40,7 @@ The `type` of a selector should be one of the following:
 - `l` Layout
 - `u` Utility
 
-{{< styleguide-load-static-css suffix=".dev.css" >}}
+{{< styleguide-load-static-css suffix=".css" >}}
 
 {{< styleguide-raw-html >}}
 <div class='n-hopin-styleguide-js-bem-classnames'></div>

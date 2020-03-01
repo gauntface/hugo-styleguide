@@ -1,7 +1,6 @@
 import {VariableGroup, Variable} from './_variable-group';
 import {copyToClipboard} from './_clipboard';
 
-const COLORS_SUFFIX = 'colors.dev.css';
 const namespace = 'n-hopin-styleguide-';
 const COLORS_CONTAINER_SELECTOR = `.${namespace}js-colors-grid`;
 
@@ -18,7 +17,7 @@ const SWATCH_COPY_CLASS = `${namespace}c-swatch__copytext`;
 
 class ColorPalette extends VariableGroup {
     constructor() {
-        super(COLORS_CONTAINER_SELECTOR, COLORS_SUFFIX);
+        super(COLORS_CONTAINER_SELECTOR);
     }
 
     renderData(variables: Variable[]): HTMLElement[] {

@@ -23,7 +23,7 @@ gulp.task('typescript', gulp.series(
 ))
 
 gulp.task('css', gulp.series(
-  css.gulpBuildAll({
+  css.gulpBuild({
     src: themeSrc,
     dst: themeDst,
   }, {

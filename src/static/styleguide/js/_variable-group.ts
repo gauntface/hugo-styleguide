@@ -5,17 +5,17 @@ const GROUP_CONTAINER_CLASS = `${namespace}c-variable-group`;
 const GROUP_TITLE_CLASS = `${namespace}c-variable-group__title`;
 
 export abstract class VariableGroup {
-    constructor(private containerSelector: string, private fileSuffix: string) {}
+    constructor(private containerSelector: string) {}
 
     getGroups(): Group[] {
         const groups: { [key: string]: Group; } = {};
         for (const s of document.styleSheets) {
             try {
-                if (!s.href) {
+                const element = s.ownerNode as HTMLElement;
+                if (!element.classList.contains('n-hopin-styleguide-js-load-static-css')) {
                     continue;
                 }
-
-                if (s.href.lastIndexOf(this.fileSuffix) !== s.href.length - this.fileSuffix.length) {
+                if (!s.href) {
                     continue;
                 }
 
@@ -24,7 +24,7 @@ export abstract class VariableGroup {
                 }
 
                 const group: Group = {
-                    prettyName: friendlyNameFromURL(s.href, this.fileSuffix),
+                    prettyName: friendlyNameFromURL(s.href),
                     href: s.href,
                     variables: [],
                 };

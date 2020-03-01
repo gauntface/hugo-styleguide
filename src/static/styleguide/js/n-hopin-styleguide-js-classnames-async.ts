@@ -127,6 +127,10 @@ class ClassName {
   renderList(classes: string[], container: Element) {
     const ol = document.createElement('ol');
     for (const c of classes) {
+      if (c.indexOf('n-hopin-styleguide') === 1) {
+        continue;
+      }
+      
       const li = document.createElement('li');
       li.textContent = c
       ol.appendChild(li);

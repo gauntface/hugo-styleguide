@@ -128,13 +128,13 @@ Below is a YouTube iframe with a width and height attribute.
 
 {{< styleguide-raw-html >}}
 <!-- Autoplay and width + height should be removed by hopin-static-site-gen -->
-<iframe width="560" height="315" src="https://www.youtube.com/embed/x2o-oy0o5Mo?autoplay=1"></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/x2o-oy0o5Mo"></iframe>
 {{< / styleguide-raw-html >}}
 
 Below is a YouTube iframe without a width and height attribute.
 
 {{< styleguide-raw-html >}}
-<iframe src="https://www.youtube.com/embed/x2o-oy0o5Mo?autoplay=1"></iframe>
+<iframe src="https://www.youtube.com/embed/x2o-oy0o5Mo"></iframe>
 {{< / styleguide-raw-html >}}
 
 Below is a slideshare iframe without a width and height attribute.

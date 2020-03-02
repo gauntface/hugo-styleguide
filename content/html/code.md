@@ -29,7 +29,7 @@ async function main() {
   try {
     await read('~/example.txt']);
   } catch (err) {
-    console.error(`Faile to read file: ${err}`);
+    console.error(`Failed to read file: ${err}`);
   }
 }
 ```
@@ -55,7 +55,7 @@ async function main() {
   try {
     await read('~/example.txt']);
   } catch (err) {
-    console.error(`Faile to read file: ${err}`);
+    console.error(`Failed to read file: ${err}`);
   }
 }
 ```

@@ -8,6 +8,6 @@ menu:
 type: "styleguide"
 ---
 
-Layouts are picked up from `partials/layouts/*` and will include files that have the suffix `*-close.html` and `*-close.html`.
+Layouts are picked up from `partials/layouts/*` and will include files that have the suffix `*-open.html` and `*-close.html`.
 
 {{< styleguide-load-layouts >}}

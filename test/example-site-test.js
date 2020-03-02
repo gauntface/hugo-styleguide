@@ -49,7 +49,7 @@ test('color grid', async (t) => {
   // Load webpage
   await page.goto(`${addr}/variables/colors/`);
   const swatches = await page.$$('.n-hopin-styleguide-c-swatch')
-  t.deepEqual(swatches.length, 1);
+  t.deepEqual(swatches.length, 3);
 
   const vars = [];
   const vals = [];
@@ -61,8 +61,8 @@ test('color grid', async (t) => {
     vals.push(valTxt);
   }
 
-  t.deepEqual(vars, ['--coffee']);
-  t.deepEqual(vals, ['#C0FFEE']);
+  t.deepEqual(vars, ['--coffee', '--rgb-demo', '--rgba-demo']);
+  t.deepEqual(vals, ['#C0FFEE', 'rgb(255, 255, 255)', 'rgba(1,2,3,0.4)']);
 })
 
 test('dimensions grid', async (t) => {

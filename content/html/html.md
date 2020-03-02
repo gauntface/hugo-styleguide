@@ -57,8 +57,20 @@ body {}
 ```go
 fmt.Println("This is go.");
 ```
+
 ```bash
 echo "This is bash"
+```
+
+```go
+func main() {
+  ctx := context.Background()
+  err := run(ctx)
+  if err != nil {
+    fmt.Printf("run not successful: %v\n", err)
+    os.Exit(1)
+  }
+}
 ```
 
 > This is block quote

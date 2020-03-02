@@ -87,15 +87,19 @@ class ColorPalette extends VariableGroup {
         return [swatchGroup];
     }
 
-    hexToRGB(hex: string): RGBColor {
+    hexToRGB(colorValue: string): RGBColor {
         const hexRegex = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i;
-        let result = hexRegex.exec(hex.trim());
+        let result = hexRegex.exec(colorValue.trim());
         if (!result) {
           // Try 3 hex
           const shortHexRegex = /^#?([a-f\d]{1})([a-f\d]{1})([a-f\d]{1})$/i;
-          result = shortHexRegex.exec(hex.trim());
+          result = shortHexRegex.exec(colorValue.trim());
           if (!result) {
-            throw new Error(`Unable to parse hex string '${hex}'`);
+            const rgbRegex = /^rgba?\((\d+),\s*(\d+),\s*(\d+).*\)$/i;
+            result = rgbRegex.exec(colorValue.trim());
+            if (!result) {
+              throw new Error(`Unable to parse hex string '${colorValue}'`);
+            }
           }
           result[1] = `${result[1]}${result[1]}`;
           result[2] = `${result[2]}${result[2]}`;

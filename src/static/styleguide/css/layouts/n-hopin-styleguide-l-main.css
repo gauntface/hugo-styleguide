@@ -99,12 +99,20 @@ See https://tobiasahlin.com/blog/how-to-animate-box-shadow/
   position: relative;
 }
 
+.n-hopin-styleguide-c-sidebar__list {
+  font-weight: bold;
+}
+
+.n-hopin-styleguide-c-sidebar__list .sub-menu {
+  font-weight: normal;
+}
+
 @media (min-width: 960px) {
   .n-hopin-styleguide-l-main {
     display: grid;
     grid-template-areas: "sidebar content";
     grid-template-rows:    1fr;
-    grid-template-columns: 200px 1fr;
+    grid-template-columns: 300px 1fr;
     min-height: 100%;
     height: 100%;
   }

@@ -80,7 +80,7 @@ gulp.task('example-themes', gulp.series(
   'example-sg-content',
 ));
 
-gulp.task('example-hugo', () => hugo.build(exampleDir));
+gulp.task('example-hugo', () => hugo.build(exampleDir, [`--environment=test`]));
 gulp.task('example-build', gulp.series(
   'build',
   'example-themes',

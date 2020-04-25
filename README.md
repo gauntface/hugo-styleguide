@@ -1,6 +1,6 @@
 # Hopin Styleguide Hugo Theme
 
-[![Build and Test](https://github.com/gauntface/hopin-hugo-styleguide/workflows/Build%20and%20Test/badge.svg)](https://github.com/gauntface/hopin-hugo-styleguide/actions?query=workflow%3A%22Build+and+Test%22)
+[![Build and Test](https://github.com/gauntface/hopin-hugo-styleguide/workflows/Build%20and%20Test/badge.svg)](https://github.com/gauntface/hopin-hugo-styleguide/actions?query=workflow%3A%22Build+and+Test%22) [![Publish](https://github.com/gauntface/hopin-hugo-styleguide/workflows/Publish/badge.svg)](https://github.com/gauntface/hopin-hugo-styleguide/actions?query=workflow%3APublish)
 
 This repo contains a theme to use with hopin-styleguide-content..
 

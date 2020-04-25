@@ -6,7 +6,7 @@ on:
     - cron:  '30 13 * * 0'
 
 jobs:
-  update-release-branch:
+  publish:
     runs-on: ubuntu-18.04
     steps:
 

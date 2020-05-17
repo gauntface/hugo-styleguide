@@ -34,4 +34,34 @@
   {{ template "styleguide-load-dev-assets-dir" (dict "dir" .) }}
   {{- end -}}
 {{ end -}}
+
+<!-- Add all the JSON assets. -->
+{{- if $.Site.Data.hopin -}}
+{{- range $.Site.Data.hopin -}}
+  
+  {{- if .css -}}
+  
+  {{- range .css.sync -}}
+  <link rel="stylesheet" href="{{- . -}}">
+  {{ end -}}
+  {{- range .css.async -}}
+  <link rel="stylesheet" href="{{- . -}}">
+  {{ end -}}
+  
+  {{- end -}}
+
+  {{- if .js -}}
+  
+  {{- range .js.sync -}}
+  <script type="text/javascript" src="{{- . -}}"></script>
+  {{ end -}}
+  {{- range .js.async -}}
+  <script type="text/javascript" src="{{- . -}}"></script>
+  {{ end -}}
+  
+  {{- end -}}
+
+{{ end }}
+{{ end -}}
+
 {{- end -}}

@@ -24,7 +24,7 @@
   "dependencies": {
     "ava": "^3.1.0",
     "dir-compare": "^2.2.0",
-    "fs-extra": "9.0.0"
+    "fs-extra": "9.0.1"
   },
   "main": "index.js",
   "files": [

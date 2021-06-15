@@ -7,13 +7,14 @@
   "license": "MIT",
   "description": "This repo contains a theme and content to generate a styleguide for hugo themes",
   "scripts": {
-    "build-example": "rm -rf example/themes/styleguide/ && rm -rf example/content && rm -rf example/public && cp -r theme example/themes/hopin-styleguide && cp -r content example/content && cd example && hugo",
+    "build-example": "rm -rf example/themes/styleguide/ && rm -rf example/content && rm -rf example/public && cp -r theme example/themes/styleguide && cp -r content example/content && cd example && hugo",
     "lint": "tsc",
     "test": "npm run build-example && ava ./test/*-test.js --verbose"
   },
   "devDependencies": {
     "@types/w3c-css-typed-object-model-level-1": "^20180410.0.2",
     "ava": "^3.15.0",
+    "postcss-cli": "^8.3.1",
     "puppeteer": "^10.0.0",
     "static-server": "^2.2.1",
     "typescript": "^4.3.2"

@@ -1,0 +1,5 @@
+svg {
+  /* Without this, wrapping elements give a small amount of space under the SVG */
+  display: block;
+}
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInN0ZGluIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsK0VBQStFO0VBQy9FLGNBQWM7QUFDaEIiLCJmaWxlIjoic3RkaW4iLCJzb3VyY2VzQ29udGVudCI6WyJzdmcge1xuICAvKiBXaXRob3V0IHRoaXMsIHdyYXBwaW5nIGVsZW1lbnRzIGdpdmUgYSBzbWFsbCBhbW91bnQgb2Ygc3BhY2UgdW5kZXIgdGhlIFNWRyAqL1xuICBkaXNwbGF5OiBibG9jaztcbn0iXX0= */

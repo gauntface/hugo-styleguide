@@ -1,0 +1,18 @@
+/* This sets the color for the layouts icon show on the
+home page */
+.n-hopin-styleguide-c-layouts-card--left, .n-hopin-styleguide-c-layouts-card--right, .n-hopin-styleguide-c-layouts-card--bottom {
+  stroke: var(--hopin-home-item-outline, #454545);
+}
+
+.n-hopin-styleguide-c-layouts-card--left {
+  fill: var(--hopin-home-item-color-2, #00aeef);
+}
+
+.n-hopin-styleguide-c-layouts-card--right {
+  fill: var(--hopin-home-item-color-3, #ec008c);
+}
+
+.n-hopin-styleguide-c-layouts-card--bottom {
+  fill: var(--hopin-home-item-color-1, #fff200);
+}
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInN0ZGluIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO1dBQ1c7QUFDWDtFQUNFLCtDQUErQztBQUNqRDs7QUFFQTtFQUNFLDZDQUE2QztBQUMvQzs7QUFFQTtFQUNFLDZDQUE2QztBQUMvQzs7QUFFQTtFQUNFLDZDQUE2QztBQUMvQyIsImZpbGUiOiJzdGRpbiIsInNvdXJjZXNDb250ZW50IjpbIi8qIFRoaXMgc2V0cyB0aGUgY29sb3IgZm9yIHRoZSBsYXlvdXRzIGljb24gc2hvdyBvbiB0aGVcbmhvbWUgcGFnZSAqL1xuLm4taG9waW4tc3R5bGVndWlkZS1jLWxheW91dHMtY2FyZC0tbGVmdCwgLm4taG9waW4tc3R5bGVndWlkZS1jLWxheW91dHMtY2FyZC0tcmlnaHQsIC5uLWhvcGluLXN0eWxlZ3VpZGUtYy1sYXlvdXRzLWNhcmQtLWJvdHRvbSB7XG4gIHN0cm9rZTogdmFyKC0taG9waW4taG9tZS1pdGVtLW91dGxpbmUsICM0NTQ1NDUpO1xufVxuXG4ubi1ob3Bpbi1zdHlsZWd1aWRlLWMtbGF5b3V0cy1jYXJkLS1sZWZ0IHtcbiAgZmlsbDogdmFyKC0taG9waW4taG9tZS1pdGVtLWNvbG9yLTIsICMwMGFlZWYpO1xufVxuXG4ubi1ob3Bpbi1zdHlsZWd1aWRlLWMtbGF5b3V0cy1jYXJkLS1yaWdodCB7XG4gIGZpbGw6IHZhcigtLWhvcGluLWhvbWUtaXRlbS1jb2xvci0zLCAjZWMwMDhjKTtcbn1cblxuLm4taG9waW4tc3R5bGVndWlkZS1jLWxheW91dHMtY2FyZC0tYm90dG9tIHtcbiAgZmlsbDogdmFyKC0taG9waW4taG9tZS1pdGVtLWNvbG9yLTEsICNmZmYyMDApO1xufSJdfQ== */

@@ -1,11 +1,11 @@
-name: Publish Theme
+name: Publish Content
 on:
   workflow_dispatch:
   push:
     branches:
       - main
 jobs:
-  publish-theme:
+  publish-content:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2

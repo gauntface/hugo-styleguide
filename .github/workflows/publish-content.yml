@@ -1,0 +1,32 @@
+name: Publish Theme
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+jobs:
+  publish-theme:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install dependencies
+        run: npm install
+      - name: Copy content to tmp
+        run: |
+          rm -rf /tmp/hugo-styleguide-content
+          mkdir -p /tmp/hugo-styleguide-content
+          cp -r content/** /tmp/hugo-styleguide-content/
+      - name: Prep Release
+        run: |
+          git config --global user.name 'Matt Gaunt'
+          git config --global user.email 'hello@gaunt.dev'
+          git checkout -b release-content
+          rm -rf *
+          rm -rf .github
+          cp -r /tmp/hugo-styleguide-content/** ./
+          ls -l
+      - name: Commit theme
+        run: |
+          git add .
+          git commit -am "Automated release"
+          git push -f origin release-content

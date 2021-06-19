@@ -1,11 +1,11 @@
-name: Publish Release
+name: Publish Theme
 on:
   workflow_dispatch:
   push:
     branches:
       - main
 jobs:
-  publish-release:
+  publish-theme:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -14,20 +14,20 @@ jobs:
       - name: Build theme on main
         run: |
           npm run build
-          rm -rf /tmp/hugo-base-theme
-          mkdir -p /tmp/hugo-base-theme
-          cp -r build/** /tmp/hugo-base-theme/
+          rm -rf /tmp/hugo-styleguide-theme
+          mkdir -p /tmp/hugo-styleguide-theme
+          cp -r build/** /tmp/hugo-styleguide-theme/
       - name: Prep Release
         run: |
           git config --global user.name 'Matt Gaunt'
           git config --global user.email 'hello@gaunt.dev'
-          git checkout -b release
+          git checkout -b release-theme
           rm -rf *
           rm -rf .github
-          cp -r /tmp/hugo-base-theme/** ./
+          cp -r /tmp/hugo-styleguide-theme/** ./
           ls -l
       - name: Commit theme
         run: |
           git add .
           git commit -am "Automated release"
-          git push -f origin release
+          git push -f origin release-theme

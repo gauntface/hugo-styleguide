@@ -1,4 +1,0 @@
-svg {
-  /* Without this, wrapping elements give a small amount of space under the SVG */
-  display: block;
-}

@@ -7,15 +7,15 @@
         "noImplicitAny": true,
         "removeComments": true,
         "preserveConstEnums":true,
+        "outDir": ".tmp",
         "sourceMap": true,
 
         "allowJs": true,
         "checkJs": true,
-        "outDir": "theme/assets/styleguide/js",
     },
     "include": [
-        "theme/**/*.js",
-        "theme/**/*.ts",
+        "src/**/*.js",
+        "src/**/*.ts",
     ],
     "exclude": [
     ]

@@ -1,0 +1,7 @@
+{
+  "automerge": true,
+  "branchName": "main",
+  "extends": [
+    "config:base"
+  ]
+}

@@ -1,9 +1,0 @@
-.n-hopin-styleguide-c-dimensions-card--square {
-  stroke: var(--hopin-home-item-outline, #454545);
-  fill: var(--hopin-home-item-color-1, #fff200);
-}
-
-.n-hopin-styleguide-c-dimensions-card--rule {
-  stroke: var(--hopin-home-item-color-3, #ec008c);
-}
-/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInN0ZGluIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsK0NBQStDO0VBQy9DLDZDQUE2QztBQUMvQzs7QUFFQTtFQUNFLCtDQUErQztBQUNqRCIsImZpbGUiOiJzdGRpbiIsInNvdXJjZXNDb250ZW50IjpbIi5uLWhvcGluLXN0eWxlZ3VpZGUtYy1kaW1lbnNpb25zLWNhcmQtLXNxdWFyZSB7XG4gIHN0cm9rZTogdmFyKC0taG9waW4taG9tZS1pdGVtLW91dGxpbmUsICM0NTQ1NDUpO1xuICBmaWxsOiB2YXIoLS1ob3Bpbi1ob21lLWl0ZW0tY29sb3ItMSwgI2ZmZjIwMCk7XG59XG5cbi5uLWhvcGluLXN0eWxlZ3VpZGUtYy1kaW1lbnNpb25zLWNhcmQtLXJ1bGUge1xuICBzdHJva2U6IHZhcigtLWhvcGluLWhvbWUtaXRlbS1jb2xvci0zLCAjZWMwMDhjKTtcbn0iXX0= */

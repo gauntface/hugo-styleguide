@@ -3,6 +3,8 @@ node_modules/
 *.d.ts
 *.min.css
 build/
-example/themes/hopin-styleguide/
-example/content/
-example/public/
+test/example-site/themes/styleguide/
+test/example-site/content/
+test/example-site/public/
+test/example-site/resources/
+.tmp/

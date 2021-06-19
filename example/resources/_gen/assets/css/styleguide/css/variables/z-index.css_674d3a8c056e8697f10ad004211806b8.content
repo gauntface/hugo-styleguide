@@ -1,8 +1,0 @@
-:root {
-  --hopin-main-backrop-z-index: 2;
-  --hopin-main-sidebar-z-index: 3;
-  --hopin-main-header-dropshadow-z-index: 4;
-  
-  --hopin-grid-overlay-z-index: 9;
-}
-/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInN0ZGluIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsK0JBQStCO0VBQy9CLCtCQUErQjtFQUMvQix5Q0FBeUM7O0VBRXpDLCtCQUErQjtBQUNqQyIsImZpbGUiOiJzdGRpbiIsInNvdXJjZXNDb250ZW50IjpbIjpyb290IHtcbiAgLS1ob3Bpbi1tYWluLWJhY2tyb3Atei1pbmRleDogMjtcbiAgLS1ob3Bpbi1tYWluLXNpZGViYXItei1pbmRleDogMztcbiAgLS1ob3Bpbi1tYWluLWhlYWRlci1kcm9wc2hhZG93LXotaW5kZXg6IDQ7XG4gIFxuICAtLWhvcGluLWdyaWQtb3ZlcmxheS16LWluZGV4OiA5O1xufSJdfQ== */

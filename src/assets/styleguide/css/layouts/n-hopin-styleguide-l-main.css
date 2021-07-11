@@ -1,4 +1,5 @@
 @import "../variables/z-index.css";
+
 .n-hopin-styleguide-l-main {
   display: grid;
   grid-template-areas: "content";
@@ -20,25 +21,6 @@
   align-items: stretch;
 }
 
-/*
-
-This is a trick to get better performance for drop shadow animation
-See https://tobiasahlin.com/blog/how-to-animate-box-shadow/
-
-*/
-.n-hopin-styleguide-l-main__header:after {
-  content: '';
-  will-change: opacity;
-  position: absolute;
-  z-index: var(--hopin-main-header-dropshadow-z-index);
-  width: 100%;
-  height: 100%;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.5);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 400ms ease-in-out;
-}
-
 .n-hopin-styleguide-l-main__header-title {
   font-weight: var(--hopin-header-font-weight, normal);
 }
@@ -53,39 +35,6 @@ See https://tobiasahlin.com/blog/how-to-animate-box-shadow/
   transition: left 400ms ease-in;
   z-index: var(--hopin-main-sidebar-z-index);
   will-change: left;
-}
-
-.n-hopin-styleguide-l-main__backdrop {
-  position: absolute;
-  width: 100%;
-  height: calc(100% - 80px);
-  bottom: 0;
-  left: 0;
-  pointer-events: none;
-  opacity: 0;
-  background-color: var(--hopin-main-backdrop-color, black);
-  transition: opacity 400ms ease-in;
-  z-index: var(--hopin-main-backrop-z-index);
-  will-change: opacity;
-}
-
-#n-hopin-styleguide-l-main__sidebar-checkbox {
-  display: none;
-  visibility: hidden;
-}
-
-#n-hopin-styleguide-l-main__sidebar-checkbox:checked ~ .n-hopin-styleguide-l-main__header:after {
-  opacity: 1;
-}
-
-#n-hopin-styleguide-l-main__sidebar-checkbox:checked ~ .n-hopin-styleguide-l-main__sidebar {
-  left: 0;
-}
-
-#n-hopin-styleguide-l-main__sidebar-checkbox:checked ~ .n-hopin-styleguide-l-main__backdrop {
-  opacity: 0.9;
-  user-select: none;
-  pointer-events: all;
 }
 
 .n-hopin-styleguide-l-main__content {
@@ -107,7 +56,70 @@ See https://tobiasahlin.com/blog/how-to-animate-box-shadow/
   font-weight: normal;
 }
 
+.u-js-loaded .n-hopin-styleguide-l-main__backdrop {
+  transition: opacity 400ms ease-in;
+}
+
+/* Only  show the backdrop on mobile devices */
+@media (max-width: 959px) {
+  /*
+
+  This is a trick to get better performance for drop shadow animation
+  See https://tobiasahlin.com/blog/how-to-animate-box-shadow/
+
+  */
+  .n-hopin-styleguide-l-main__header:after {
+    content: '';
+    position: absolute;
+    z-index: var(--hopin-main-header-dropshadow-z-index);
+    width: 100%;
+    height: 100%;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+    pointer-events: none;
+    transition: opacity 400ms ease-in-out;
+    opacity: 0;
+    will-change: opacity;
+  }
+
+  .n-hopin-styleguide-l-main__backdrop {
+    position: absolute;
+    width: 100%;
+    height: calc(100% - 80px);
+    bottom: 0;
+    left: 0;
+    pointer-events: none;
+    background-color: var(--hopin-main-backdrop-color, black);
+    z-index: var(--hopin-main-backrop-z-index);
+
+    opacity: 0;
+    will-change: opacity;
+  }
+
+  #n-hopin-styleguide-l-main__sidebar-checkbox {
+    display: none;
+    visibility: hidden;
+  }
+
+  #n-hopin-styleguide-l-main__sidebar-checkbox:checked ~ .n-hopin-styleguide-l-main__header:after {
+    opacity: 1;
+  }
+
+  #n-hopin-styleguide-l-main__sidebar-checkbox:checked ~ .n-hopin-styleguide-l-main__sidebar {
+    left: 0;
+  }
+
+  #n-hopin-styleguide-l-main__sidebar-checkbox:checked ~ .n-hopin-styleguide-l-main__backdrop {
+    opacity: 0.9;
+    user-select: none;
+    pointer-events: all;
+  }
+}
+
 @media (min-width: 960px) {
+  .c-styleguide-header__menu {
+    display: none;
+  }
+
   .n-hopin-styleguide-l-main {
     display: grid;
     grid-template-areas: "sidebar content";
@@ -118,8 +130,6 @@ See https://tobiasahlin.com/blog/how-to-animate-box-shadow/
   }
 
   .n-hopin-styleguide-l-main__sidebar {
-    position: relative;
-    margin-top: 80px;
     left: 0;
     width: auto;
   }

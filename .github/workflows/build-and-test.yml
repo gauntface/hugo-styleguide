@@ -16,9 +16,11 @@ jobs:
     - name: Setup Hugo
       uses: peaceiris/actions-hugo@v2
       with:
-        hugo-version: '0.68.3'
+        hugo-version: '0.80.0'
 
     - uses: actions/checkout@v2
+      with:
+        submodules: true
 
     - name: Install
       run: npm install

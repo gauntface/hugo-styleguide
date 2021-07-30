@@ -80,7 +80,7 @@ test('dimensions grid', async (t) => {
   // Load webpage
   await page.goto(`${addr}/variables/dimensions/`);
   const rows = await page.$$('.n-hopin-styleguide-js-dimensions-grid tbody > tr')
-  t.deepEqual(rows.length, 1);
+  t.deepEqual(rows.length, 2);
 
   const vars = [];
   const vals = [];
@@ -92,8 +92,8 @@ test('dimensions grid', async (t) => {
     vals.push(valTxt);
   }
 
-  t.deepEqual(vars, ['--padding']);
-  t.deepEqual(vals, ['16px']);
+  t.deepEqual(vars, ['--theme-example', '--padding']);
+  t.deepEqual(vals, ['1234px', '16px']);
 })
 
 test('fonts grid', async (t) => {

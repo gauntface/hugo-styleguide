@@ -4,13 +4,14 @@ const StaticServer = require('static-server');
 const puppeteer = require('puppeteer');
 
 const server = new StaticServer({
-  rootPath: path.join(__dirname, '..', 'example', 'public'),
+  rootPath: path.join(__dirname, 'example-site', 'public'),
   port: 9999,
 });
 
 function startServer() {
   return new Promise((resolve, reject) => {
     server.start(() => {
+      console.log(`Using http://localhost:${server.port}`);
       resolve(`http://localhost:${server.port}`);
     })
   });
@@ -20,7 +21,7 @@ let addr;
 let browser
 test.before(async (t) => {
   // Server for project
-  addr = await startServer();  
+  addr = await startServer();
 });
 test.before(async (t) => {
   // Start browser
@@ -37,6 +38,13 @@ test.after('cleanup', async (t) => {
 test.beforeEach(async (t) => {
   // Create new page for test
   t.context.page = await browser.newPage();
+
+  // Ensure we get 200 responses from the server
+  t.context.page.on('response', (response) => {
+    if (response) {
+      t.deepEqual(response.status(), 200);
+    }
+  })
 });
 
 test.afterEach(async (t) => {
@@ -48,8 +56,9 @@ test('color grid', async (t) => {
 
   // Load webpage
   await page.goto(`${addr}/variables/colors/`);
+
   const swatches = await page.$$('.n-hopin-styleguide-c-swatch')
-  t.deepEqual(swatches.length, 3);
+  t.deepEqual(swatches.length, 4);
 
   const vars = [];
   const vals = [];
@@ -61,8 +70,8 @@ test('color grid', async (t) => {
     vals.push(valTxt);
   }
 
-  t.deepEqual(vars, ['--coffee', '--rgb-demo', '--rgba-demo']);
-  t.deepEqual(vals, ['#C0FFEE', 'rgb(255, 255, 255)', 'rgba(1,2,3,0.4)']);
+  t.deepEqual(vars, ['--badass', '--coffee', '--rgb-demo', '--rgba-demo']);
+  t.deepEqual(vals, ['#BADA55', '#C0FFEE', 'rgb(255, 255, 255)', 'rgba(1,2,3,0.4)']);
 })
 
 test('dimensions grid', async (t) => {
@@ -115,7 +124,7 @@ test('typography display', async (t) => {
   // Load webpage
   await page.goto(`${addr}/html/typography/`);
   const elements = await page.$$('.n-hopin-styleguide-js-typography > *')
-  
+
   for(const el of elements) {
     const childCount = await el.evaluate((el) => el.childElementCount);
     if (childCount > 0) {

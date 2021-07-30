@@ -15,6 +15,7 @@
   "devDependencies": {
     "@types/w3c-css-typed-object-model-level-1": "^20180410.0.2",
     "ava": "^3.15.0",
+    "postcss": "^8.3.6",
     "postcss-cli": "^8.3.1",
     "puppeteer": "^10.0.0",
     "rollup": "^2.52.1",

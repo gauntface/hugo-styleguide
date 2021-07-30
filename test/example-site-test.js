@@ -11,6 +11,7 @@ const server = new StaticServer({
 function startServer() {
   return new Promise((resolve, reject) => {
     server.start(() => {
+      console.log(`Using http://localhost:${server.port}`);
       resolve(`http://localhost:${server.port}`);
     })
   });

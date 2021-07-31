@@ -1,3 +1,9 @@
 :root{
     --badass: #BADA55;
+
+    --white: #ffffff;
+    --black: #000000;
+
+    --refer-to-white: var(--white);
+    --refer-to-black: var(--black);
   }

@@ -85,11 +85,11 @@ export abstract class VariableGroup {
                 groupContainer.appendChild(e);
             }
             containerElement.appendChild(groupContainer);
-        } 
+        }
     }
 
     abstract renderData(variables: Variable[]): HTMLElement[];
-} 
+}
 
 interface Group {
     prettyName: string|null;

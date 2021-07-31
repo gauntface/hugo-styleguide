@@ -16,8 +16,13 @@ const SWATCH_NAME_CLASS = `${namespace}c-swatch__name`;
 const SWATCH_COPY_CLASS = `${namespace}c-swatch__copytext`;
 
 class ColorPalette extends VariableGroup {
+  private white: RGBColor;
+  private black: RGBColor;
+
     constructor() {
-        super(COLORS_CONTAINER_SELECTOR);
+      super(COLORS_CONTAINER_SELECTOR);
+      this.white = this.hexToRGB('#FFFFFF');
+      this.black = this.hexToRGB('#000000');
     }
 
     renderData(variables: Variable[]): HTMLElement[] {
@@ -28,43 +33,48 @@ class ColorPalette extends VariableGroup {
             const hexValue = document.createElement('span');
             hexValue.classList.add(SWATCH_HEX_CLASS);
             hexValue.textContent = v.value;
-    
+
             const varName = document.createElement('span');
             varName.classList.add(SWATCH_VAR_NAME_CLASS);
             varName.textContent = v.variableName;
-    
-            // TODO: Use specific fonts applied to text instead of black and white
-            const distanceToBlack = this.distance(this.hexToRGB(v.value), this.hexToRGB('#000000'));
-            const distanceToWhite = this.distance(this.hexToRGB(v.value), this.hexToRGB('#FFFFFF'));
 
-            if (distanceToBlack > distanceToWhite) {
-              hexValue.classList.add(SWATCH_HEX_DARK_COLOR);
-              varName.classList.add(SWATCH_HEX_DARK_COLOR);
-            } else {
-              hexValue.classList.add(SWATCH_HEX_LIGHT_COLOR);
-              varName.classList.add(SWATCH_HEX_LIGHT_COLOR);
-            }
-    
             const swatchColor = document.createElement('div');
             swatchColor.classList.add(SWATCH_COLOR_CLASS);
             swatchColor.style.backgroundColor = `var(${v.variableName})`;
             swatchColor.appendChild(varName);
             swatchColor.appendChild(hexValue);
-    
+
+            try {
+              const vRGB = this.varRGBColor(swatchColor);
+              // const vRGB = this.hexToRGB(v.value);
+              const distanceToBlack = this.distance(vRGB, this.black);
+              const distanceToWhite = this.distance(vRGB, this.white);
+
+              if (distanceToBlack > distanceToWhite) {
+                hexValue.classList.add(SWATCH_HEX_DARK_COLOR);
+                varName.classList.add(SWATCH_HEX_DARK_COLOR);
+              } else {
+                hexValue.classList.add(SWATCH_HEX_LIGHT_COLOR);
+                varName.classList.add(SWATCH_HEX_LIGHT_COLOR);
+              }
+            } catch (err) {
+              console.warn(`Failed to check if swatch should have light or dark text: `, err);
+            }
+
             const swatchFooter = document.createElement('div');
             swatchFooter.classList.add(SWATCH_FOOTER_CLASS);
-    
+
             const colorName = document.createElement('span');
             colorName.classList.add(SWATCH_NAME_CLASS);
             colorName.textContent = v.prettyName;
-    
+
             const copyText = document.createElement('div');
             copyText.classList.add(SWATCH_COPY_CLASS);
             copyText.textContent = 'Copy';
-    
+
             swatchFooter.appendChild(colorName);
             swatchFooter.appendChild(copyText);
-    
+
             const swatch = document.createElement('div');
             swatch.classList.add(SWATCH_CLASS);
             swatch.appendChild(swatchColor);
@@ -81,10 +91,34 @@ class ColorPalette extends VariableGroup {
                 }, 1000);
               }
             });
-    
+
             swatchGroup.appendChild(swatch);
         }
         return [swatchGroup];
+    }
+
+    varRGBColor(swatch: HTMLElement): RGBColor {
+      const regex = /rgba?\((\d*),\s*(\d*),\s*(\d*),?\s*\d*\.?\d*\)/;
+      const hidden = document.createElement('div');
+      hidden.style.display = 'none';
+      document.body.appendChild(hidden);
+      hidden.appendChild(swatch);
+
+      const rgbString = getComputedStyle(swatch).getPropertyValue("background-color");
+
+      hidden.removeChild(swatch);
+      hidden.parentNode.removeChild(hidden);
+
+      const result = regex.exec(rgbString);
+      if (!result) {
+        throw new Error(`Unable to parse computed style '${rgbString}'`);
+      }
+
+      return {
+        Red: parseInt(result[1], 16),
+        Green: parseInt(result[2], 16),
+        Blue: parseInt(result[3], 16),
+      }
     }
 
     hexToRGB(colorValue: string): RGBColor {
@@ -111,7 +145,7 @@ class ColorPalette extends VariableGroup {
           Blue: parseInt(result[3], 16),
         }
       }
-    
+
       distance(c1: RGBColor, c2: RGBColor): number {
         const d = Math.pow((c1.Red - c2.Red), 2) +
         Math.pow((c1.Green - c2.Green), 2) +

@@ -12,9 +12,11 @@
       {{- $closeLayout := printf "layouts/%v-close.html" $layoutName -}}
 
       <div class="n-hopin-styleguide-c-layout-example">
-        {{- partial $openLayout $.ctx.Page -}}
+        {{ template "styleguide-render-partial" (dict "path" $path "fileName" (printf "%v-open" $layoutName) "fileExt" $fileExt) }}
+
         <p>This is some example content</p>
-        {{- partial $closeLayout $.ctx.Page -}}
+
+        {{ template "styleguide-render-partial" (dict "path" $path "fileName" (printf "%v-close" $layoutName) "fileExt" $fileExt) }}
       </div>
 
       <h3>Code</h3>

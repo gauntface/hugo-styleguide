@@ -5,18 +5,12 @@
   {{- if (strings.HasSuffix $path "/partials/components") -}}
     {{- if not (strings.HasSuffix $fileName ".styleguide") -}}
       <h2>{{- $fileName -}}</h2>
-      {{- $origComponent := printf "components/%v%v" $fileName $fileExt -}}
-      {{- $renderComponent := $origComponent -}}
 
-      {{- $styleguideSpecific := printf "%v/%v.styleguide.html" $path $fileName -}}
-      {{- if (fileExists $styleguideSpecific) -}}
-        {{- $renderComponent = printf "components/%v.styleguide.html" $fileName -}}
-      {{- end -}}
-
-      {{- partial $renderComponent $.ctx.Page -}}
+      {{ template "styleguide-render-partial" (dict "path" $path "fileName" $fileName "fileExt" $fileExt) }}
 
       <h3>Code</h3>
 
+      {{- $origComponent := printf "components/%v%v" $fileName $fileExt -}}
       <pre><code>{{"{{"}} partial "{{- $origComponent -}}" {{"}}"}}</code></pre>
     {{- end -}}
   {{- end -}}

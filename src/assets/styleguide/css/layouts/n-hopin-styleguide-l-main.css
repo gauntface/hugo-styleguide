@@ -1,5 +1,3 @@
-@import "../variables/z-index.css";
-
 .n-hopin-styleguide-l-main {
   display: grid;
   grid-template-areas: "content";

@@ -6,7 +6,7 @@
     {{- if not (strings.HasSuffix $fileName ".styleguide") -}}
       <h2>{{- $fileName -}}</h2>
 
-      {{ template "styleguide-render-partial" (dict "path" $path "fileName" $fileName "fileExt" $fileExt) }}
+      {{ template "styleguide-render-partial" (dict "path" $path "fileName" $fileName "fileExt" $fileExt "ctx" $.ctx) }}
 
       <h3>Code</h3>
 

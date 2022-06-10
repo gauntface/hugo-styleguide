@@ -25,8 +25,11 @@
   {{- end -}}
 {{- end -}}
 
-{{- range (slice "/themes" "/static" "/assets") -}}
-  {{- if (fileExists .) -}}
-  {{- template "styleguide-load-static-css" (dict "suffix" $.Params.suffix "dir" .) -}}
+{{- range (readDir "/") -}}
+  {{- $name := .Name -}}
+  {{- range (slice "themes" "static" "assets") -}}
+    {{- if eq $name . -}}
+      {{- template "styleguide-load-static-css" (dict "suffix" $.Params.suffix "dir" .) -}}
+    {{- end -}}
   {{- end -}}
 {{- end -}}

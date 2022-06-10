@@ -68,7 +68,7 @@ test('color grid', async (t) => {
     '--coffee',
     '--rgb-demo',
     '--rgba-demo',
-  ];
+  ].sort();
   const wantVals = [
     '#BADA55',
     '#ffffff',
@@ -78,7 +78,7 @@ test('color grid', async (t) => {
     '#C0FFEE',
     'rgb(255, 255, 255)',
     'rgba(1,2,3,0.4)',
-  ];
+  ].sort();
 
   t.deepEqual(swatches.length, wantVars.length);
 
@@ -91,6 +91,9 @@ test('color grid', async (t) => {
     const valTxt = await s.evaluate((s) => s.querySelector('.n-hopin-styleguide-c-swatch__hex-value').textContent);
     vals.push(valTxt);
   }
+
+  vars.sort();
+  vals.sort();
 
   t.deepEqual(vars, wantVars);
   t.deepEqual(vals, wantVals);
@@ -114,7 +117,10 @@ test('dimensions grid', async (t) => {
     vals.push(valTxt);
   }
 
-  t.deepEqual(vars, ['--theme-example', '--padding']);
+  vars.sort();
+  vals.sort();
+
+  t.deepEqual(vars, ['--padding', '--theme-example']);
   t.deepEqual(vals, ['1234px', '16px']);
 })
 
@@ -135,6 +141,9 @@ test('fonts grid', async (t) => {
     const valTxt = await row.evaluate((row) => row.querySelectorAll('td')[1].textContent);
     vals.push(valTxt);
   }
+
+  vars.sort();
+  vals.sort();
 
   t.deepEqual(vars, ['--font-family']);
   t.deepEqual(vals, ['"Robot", "Open Sans", sans-serif']);

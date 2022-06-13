@@ -12,7 +12,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 80px;
+  height: var(--n-gs-header-size);
   grid-area: header;
   display: flex;
   flex-direction: row;
@@ -27,7 +27,7 @@
   grid-area: sidebar;
   position: absolute;
   width: 280px;
-  height: calc(100% - 80px);
+  height: calc(100% - var(--n-gs-header-size));
   bottom: 0;
   left: -280px;
   transition: left 400ms ease-in;
@@ -36,7 +36,7 @@
 }
 
 .n-hopin-styleguide-l-main__content {
-  margin-top:80px;
+  margin-top:var(--n-gs-header-size);
   padding: var(--hopin-main-content-vert-padding, 45px) var(--hopin-main-content-hori-padding, 48px);
   grid-area: content;
   overflow-y: auto;
@@ -82,7 +82,7 @@
   .n-hopin-styleguide-l-main__backdrop {
     position: absolute;
     width: 100%;
-    height: calc(100% - 80px);
+    height: calc(100% - var(--n-gs-header-size));
     bottom: 0;
     left: 0;
     pointer-events: none;

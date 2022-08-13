@@ -1,7 +1,0 @@
-{
-   "baseURL": "http://example.org/",
-   "languageCode": "en-us",
-   "theme": ["example-theme", "base-theme", "styleguide"],
-   "params": {
-   }
-}

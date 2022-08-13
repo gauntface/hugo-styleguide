@@ -1,3 +1,0 @@
-[submodule "test/example-site/themes/base-theme"]
-	path = test/example-site/themes/base-theme
-	url = https://github.com/gauntface/hugo-base-theme.git

@@ -14,11 +14,11 @@ jobs:
         sudo apt-get install libgbm-dev
 
     - name: Setup Hugo
-      uses: peaceiris/actions-hugo@v2
+      uses: peaceiris/actions-hugo@16361eb4acea8698b220b76c0d4e84e1fd22c61d # v2
       with:
         hugo-version: '0.80.0'
 
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
       with:
         submodules: true
 

@@ -1,0 +1,30 @@
+name: Publish Content
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - content
+jobs:
+  publish-content:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Copy content to tmp
+        run: |
+          mkdir -p /tmp/hugo-styleguide-content
+          cp -r $(ls -A | grep -v '^\.git$\|^\.github$') /tmp/hugo-styleguide-content/
+      - name: Prep Release
+        run: |
+          git config --global user.name 'Matt Gaunt'
+          git config --global user.email 'hello@gaunt.dev'
+          git checkout -B release-content origin/release-content
+          git rm -rfq .
+          git clean -fdxq
+          cp -r /tmp/hugo-styleguide-content/. ./
+      - name: Commit content
+        run: |
+          git add -A
+          git diff --cached --quiet || git commit -m "Automated release"
+          git push origin release-content

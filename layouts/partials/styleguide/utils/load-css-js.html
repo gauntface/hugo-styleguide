@@ -26,6 +26,12 @@
     {{- end -}}
   {{ end -}}
 
+  <!-- Add all the TS files, skipping modules that are only imported. -->
+  {{- if and (strings.HasSuffix $.path ".ts") (not (hasPrefix (path.Base $.path) "_")) -}}
+    {{ $script := resources.Get $.path | js.Build (dict "minify" true) }}
+    {{ template "styleguide-load-css-js-add-js" (dict "link" $script.RelPermalink)}}
+  {{ end -}}
+
   <!-- Add all the JS files. -->
   {{- if (strings.HasSuffix $.path ".js") -}}
     {{ $script := resources.Get $.path }}

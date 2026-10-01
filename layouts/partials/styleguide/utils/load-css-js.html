@@ -1,0 +1,75 @@
+{{- define "styleguide-load-css-js-add-css" -}}
+  {{ if (strings.HasSuffix $.link ".css") }}
+    {{ if (strings.HasSuffix $.link ".print.css") }}
+    <link rel="stylesheet" href="{{ $.link }}" media="print">
+    {{ else }}
+    <link rel="stylesheet" href="{{ $.link }}">
+    {{ end }}
+  {{ end }}
+{{- end -}}
+
+{{- define "styleguide-load-css-js-add-js" -}}
+  {{ if (strings.HasSuffix $.link ".js") }}
+  <script type="module" type="text/javascript" src="{{ $.link }}"></script>
+  {{ end }}
+{{- end -}}
+
+{{- define "styleguide-load-css-js-add-asset" -}}
+  {{- if (strings.HasSuffix $.path ".css") -}}
+    {{- if (eq hugo.Environment "production") -}}
+      {{ $options := dict "noMap" true }}
+      {{ $style := resources.Get $.path | resources.PostCSS $options }}
+      {{ $style.Publish }}
+    {{- else -}}
+      {{ $style := resources.Get $.path }}
+      {{ template "styleguide-load-css-js-add-css" (dict "link" $style.RelPermalink)}}
+    {{- end -}}
+  {{ end -}}
+
+  <!-- Add all the JS files. -->
+  {{- if (strings.HasSuffix $.path ".js") -}}
+    {{ $script := resources.Get $.path }}
+    {{ template "styleguide-load-css-js-add-js" (dict "link" $script.RelPermalink)}}
+  {{ end -}}
+{{- end -}}
+
+{{- define "styleguide-load-css-js-file" -}}
+  {{ if in $.path "assets/" }}
+    {{- $sections := split $.path "assets/" -}}
+    {{- $path := index $sections 1 -}}
+    {{ template "styleguide-load-css-js-add-asset" (dict "path" $path) }}
+  {{ else if (in $.path "static/") }}
+    {{- $sections := split $.path "static/" -}}
+    {{- $path := index $sections 1 -}}
+    {{- $path := printf "/%v" $path -}}
+    {{ template "styleguide-load-css-js-add-css" (dict "link" $path)}}
+    {{ template "styleguide-load-css-js-add-js" (dict "link" $path)}}
+  {{ end }}
+{{- end -}}
+
+{{- define "styleguide-load-css-js-dir" -}}
+  {{- range (readDir $.dir) -}}
+    {{- $path := printf "%v/%v" $.dir .Name -}}
+    {{- if .IsDir -}}
+      {{- if (eq hugo.Environment "development") -}}
+        {{- template "styleguide-load-css-js-dir" (dict "dir" $path) -}}
+      {{- end -}}
+    {{- else -}}
+      {{- template "styleguide-load-css-js-file" (dict "path" $path "name" .Name) -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{- define "styleguide-load-css-js-slice" -}}
+  {{- range (readDir "/") -}}
+    {{- $name := .Name -}}
+    {{- range $.slice -}}
+      {{- if eq $name . -}}
+        {{ template "styleguide-load-css-js-dir" (dict "dir" .) }}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+<!-- Add all the CSS and JS assets. -->
+{{- template "styleguide-load-css-js-slice" (dict "slice" (slice "themes" "assets" "static")) -}}

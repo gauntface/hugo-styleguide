@@ -1,0 +1,4 @@
+:root {
+  --n-gs-grid-size: 18px;
+  --n-gs-header-size: calc(var(--n-gs-grid-size) * 4);
+}

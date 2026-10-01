@@ -31,7 +31,7 @@
 
 {{- $ctx := .}}
 
-{{- range (slice "/themes") -}}
+{{- range (slice "themes") -}}
   {{- if (fileExists .) -}}
   {{- template "styleguide-components-dir" (dict "dir" . "ctx" $ctx) -}}
   {{- end -}}

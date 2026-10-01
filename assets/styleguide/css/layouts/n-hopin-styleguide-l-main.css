@@ -7,6 +7,11 @@
   height: 100%;
 }
 
+#n-hopin-styleguide-l-main__sidebar-checkbox {
+  display: none;
+  visibility: hidden;
+}
+
 .n-hopin-styleguide-l-main__header {
   position: absolute;
   top: 0;
@@ -91,11 +96,6 @@
 
     opacity: 0;
     will-change: opacity;
-  }
-
-  #n-hopin-styleguide-l-main__sidebar-checkbox {
-    display: none;
-    visibility: hidden;
   }
 
   #n-hopin-styleguide-l-main__sidebar-checkbox:checked ~ .n-hopin-styleguide-l-main__header:after {

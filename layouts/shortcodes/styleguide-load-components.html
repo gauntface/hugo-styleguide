@@ -31,7 +31,15 @@
 
 {{- $ctx := .}}
 
-{{- range (slice "themes") -}}
+{{- $dirs := slice "themes" -}}
+{{- with (site.Params.basetheme).themes -}}
+  {{- $dirs = slice -}}
+  {{- range . -}}
+    {{- $dirs = $dirs | append (printf "themes/%v" .) -}}
+  {{- end -}}
+{{- end -}}
+
+{{- range $dirs -}}
   {{- if (fileExists .) -}}
   {{- template "styleguide-components-dir" (dict "dir" . "ctx" $ctx) -}}
   {{- end -}}

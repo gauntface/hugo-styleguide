@@ -9,6 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Copy theme to tmp
         run: |
           mkdir -p /tmp/hugo-styleguide-theme
@@ -17,12 +19,12 @@ jobs:
         run: |
           git config --global user.name 'Matt Gaunt'
           git config --global user.email 'hello@gaunt.dev'
-          git checkout -b release-theme
+          git checkout -B release-theme origin/release-theme
           git rm -rfq .
           git clean -fdxq
           cp -r /tmp/hugo-styleguide-theme/. ./
       - name: Commit theme
         run: |
-          git add .
-          git commit -m "Automated release"
-          git push -f origin release-theme
+          git add -A
+          git diff --cached --quiet || git commit -m "Automated release"
+          git push origin release-theme

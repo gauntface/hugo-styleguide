@@ -9,6 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Copy content to tmp
         run: |
           mkdir -p /tmp/hugo-styleguide-content
@@ -17,12 +19,12 @@ jobs:
         run: |
           git config --global user.name 'Matt Gaunt'
           git config --global user.email 'hello@gaunt.dev'
-          git checkout -b release-content
+          git checkout -B release-content origin/release-content
           git rm -rfq .
           git clean -fdxq
           cp -r /tmp/hugo-styleguide-content/. ./
       - name: Commit content
         run: |
-          git add .
-          git commit -m "Automated release"
-          git push -f origin release-content
+          git add -A
+          git diff --cached --quiet || git commit -m "Automated release"
+          git push origin release-content

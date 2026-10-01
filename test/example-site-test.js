@@ -25,7 +25,7 @@ test.before(async (t) => {
 });
 test.before(async (t) => {
   // Start browser
-  browser = await puppeteer.launch();
+  browser = await puppeteer.launch({args: ['--no-sandbox']});
 })
 
 test.after('cleanup', async (t) => {

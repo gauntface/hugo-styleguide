@@ -65,11 +65,17 @@
     {{- $name := .Name -}}
     {{- range $.slice -}}
       {{- if eq $name . -}}
-        {{ template "styleguide-load-css-js-dir" (dict "dir" .) }}
+        {{- if and (eq $name "themes") $.themes -}}
+          {{- range $.themes -}}
+            {{ template "styleguide-load-css-js-dir" (dict "dir" (printf "themes/%v" .)) }}
+          {{- end -}}
+        {{- else -}}
+          {{ template "styleguide-load-css-js-dir" (dict "dir" .) }}
+        {{- end -}}
       {{- end -}}
     {{- end -}}
   {{- end -}}
 {{- end -}}
 
 <!-- Add all the CSS and JS assets. -->
-{{- template "styleguide-load-css-js-slice" (dict "slice" (slice "themes" "assets" "static")) -}}
+{{- template "styleguide-load-css-js-slice" (dict "slice" (slice "themes" "assets" "static") "themes" (site.Params.basetheme).themes) -}}

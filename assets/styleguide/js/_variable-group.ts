@@ -29,24 +29,22 @@ export abstract class VariableGroup {
 					variables: [],
 				};
 
-				const cssStylesheet = s as CSSStyleSheet;
-				for (const r of cssStylesheet.cssRules) {
-					const cssStyleRule = r as {
-                        styleMap?: StyleMap
-                    };
-					if (cssStyleRule['styleMap']) {
-						const map = cssStyleRule['styleMap'];
-						for (const e of map.entries()) {
-							// The format of e is ["<param name>", [["<value>"]]]
-							const name = e[0] as string;
-							if (name.indexOf('--') === 0) {
-								const unparsedValue = e[1][0] as CSSUnparsedValue;
-								group.variables.push({
-									prettyName: friendlyName(name),
-									variableName: name,
-									value: unparsedValue.toString().trim(),
-								});
-							}
+				for (const r of s.cssRules) {
+					const cssStyleRule = r as CSSStyleRule;
+					if (!cssStyleRule.style) {
+						continue;
+					}
+
+					const styleDeclaration = cssStyleRule.style;
+					for (let i = 0; i < styleDeclaration.length; i++) {
+						const propertyName = styleDeclaration.item(i);
+						const propertyValue = styleDeclaration.getPropertyValue(propertyName);
+						if (propertyName.indexOf('--') === 0) {
+							group.variables.push({
+								prettyName: friendlyName(propertyName),
+								variableName: propertyName,
+								value: propertyValue.toString().trim(),
+							});
 						}
 					}
 				}
@@ -101,8 +99,4 @@ export interface Variable {
     prettyName: string|null;
     variableName: string;
     value: string;
-}
-
-interface StyleMap {
-    entries: () => Array<string|Array<string>>;
 }

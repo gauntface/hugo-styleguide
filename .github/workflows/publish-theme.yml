@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - v2
+      - main
 jobs:
   publish-theme:
     runs-on: ubuntu-latest

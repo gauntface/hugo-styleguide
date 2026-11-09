@@ -22,7 +22,7 @@ If `themes/` has themes that are not in use, list the ones to scan with
 
 ## Development
 
-The source is on the `v2` branch. The `content` branch holds the pages. Pushes
+The source is on the `main` branch. The `content` branch holds the pages. Pushes
 publish them to `release-theme` and `release-content`.
 
 ```

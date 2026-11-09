@@ -11,8 +11,8 @@
     "test": "npm run build-example && ava ./test/*-test.js --verbose"
   },
   "devDependencies": {
-    "ava": "4.3.0",
-    "puppeteer": "14.3.0",
+    "ava": "8.4.0",
+    "puppeteer": "25.16.0",
     "static-server": "2.2.1"
   },
   "repository": {

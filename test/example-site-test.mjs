@@ -1,10 +1,10 @@
-const path = require('path');
-const test = require('ava');
-const StaticServer = require('static-server');
-const puppeteer = require('puppeteer');
+import path from 'node:path';
+import test from 'ava';
+import StaticServer from 'static-server';
+import puppeteer from 'puppeteer';
 
 const server = new StaticServer({
-  rootPath: path.join(__dirname, 'example-site', 'public'),
+  rootPath: path.join(import.meta.dirname, 'example-site', 'public'),
   port: 9999,
 });
 
@@ -41,7 +41,8 @@ test.beforeEach(async (t) => {
 
   // Ensure we get 200 responses from the server
   t.context.page.on('response', (response) => {
-    if (response) {
+    // Chrome requests /favicon.ico by itself and the example site has none.
+    if (response && new URL(response.url()).pathname !== '/favicon.ico') {
       t.deepEqual(response.status(), 200);
     }
   })
@@ -146,7 +147,7 @@ test('fonts grid', async (t) => {
   vals.sort();
 
   t.deepEqual(vars, ['--font-family']);
-  t.deepEqual(vals, ['"Robot", "Open Sans", sans-serif']);
+  t.deepEqual(vals, ["'Robot', 'Open Sans', sans-serif"]);
 })
 
 test('typography display', async (t) => {

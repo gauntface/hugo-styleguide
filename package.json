@@ -8,7 +8,7 @@
   "description": "This repo contains a theme and content to generate a styleguide for hugo themes",
   "scripts": {
     "build-example": "rm -rf test/example-site/themes/styleguide test/example-site/content test/example-site/public && mkdir -p test/example-site/themes/styleguide && cp -r assets layouts static theme.toml test/example-site/themes/styleguide/ && rsync -a --exclude .git content/ test/example-site/content/ && cd test/example-site && hugo --environment development",
-    "test": "npm run build-example && ava ./test/*-test.js --verbose"
+    "test": "npm run build-example && ava ./test/*-test.mjs --verbose"
   },
   "devDependencies": {
     "ava": "8.4.0",

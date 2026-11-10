@@ -12,7 +12,7 @@
   },
   "devDependencies": {
     "ava": "8.4.0",
-    "puppeteer": "25.16.0",
+    "puppeteer": "25.17.0",
     "static-server": "2.2.1"
   },
   "repository": {
